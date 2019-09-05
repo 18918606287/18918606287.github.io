@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="IntroductionIn this article I will try to solve Best Time to Buy and Sell Stock series problem, including Best Time to Buy and Sell Stock I, II, III, IV and with Cooldown. Most of them are solved by d">
+<meta name="keywords" content="Algorithm,Dynamic Programming">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode Solution: Best Time to Buy and Sell Stock">
+<meta property="og:url" content="https://erebos.top/2019/09/05/LeetCode-Solution-Best-Time-Stock-to-Buy-and-Sell-Stock/index.html">
+<meta property="og:site_name" content="Erebos&#39;s blog">
+<meta property="og:description" content="IntroductionIn this article I will try to solve Best Time to Buy and Sell Stock series problem, including Best Time to Buy and Sell Stock I, II, III, IV and with Cooldown. Most of them are solved by d">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-05T01:17:08.064Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeetCode Solution: Best Time to Buy and Sell Stock">
+<meta name="twitter:description" content="IntroductionIn this article I will try to solve Best Time to Buy and Sell Stock series problem, including Best Time to Buy and Sell Stock I, II, III, IV and with Cooldown. Most of them are solved by d">
+  <link rel="alternate" href="/atom.xml" title="Erebos's blog" type="application/atom+xml">
+  <link rel="canonical" href="https://erebos.top/2019/09/05/LeetCode-Solution-Best-Time-Stock-to-Buy-and-Sell-Stock/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>LeetCode Solution: Best Time to Buy and Sell Stock | Erebos's blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Erebos's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="https://erebos.top/2019/09/05/LeetCode-Solution-Best-Time-Stock-to-Buy-and-Sell-Stock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erebos">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Erebos's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">LeetCode Solution: Best Time to Buy and Sell Stock
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-09-05 07:13:50 / Modified: 09:17:08" itemprop="dateCreated datePublished" datetime="2019-09-05T07:13:50+08:00">2019-09-05</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LeetCode/" itemprop="url" rel="index"><span itemprop="name">LeetCode</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/2019/09/05/LeetCode-Solution-Best-Time-Stock-to-Buy-and-Sell-Stock/" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode Solution: Best Time to Buy and Sell Stock" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/09/05/LeetCode-Solution-Best-Time-Stock-to-Buy-and-Sell-Stock/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/09/05/LeetCode-Solution-Best-Time-Stock-to-Buy-and-Sell-Stock/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>11k</span>
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>10 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>In this article I will try to solve <strong>Best Time to Buy and Sell Stock</strong> series problem, including <strong>Best Time to Buy and Sell Stock I, II, III, IV</strong> and <strong>with Cooldown.</strong> Most of them are solved by <strong>dynamic programming</strong> and I will focus on construct transition equation and dimension reduction.  </p>
+<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The description of <strong>Best Time to Buy and Sell Stock I</strong> is:</p>
+<p>Say you have an array for which the $i^{th}$ element is the price of a given stock on day $i$.</p>
+<p>If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.</p>
+<p>Note that you cannot sell a stock before you buy one.</p>
+<p>Example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [7,1,5,3,6,4]</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="Solution-of-Problem-I"><a href="#Solution-of-Problem-I" class="headerlink" title="Solution of Problem I"></a>Solution of Problem I</h2><p>A simple idea is using <code>dp[i]</code> as <strong>the most profit buying in $i^{th}$ day.</strong> Then the transition equation will be <code>dp[i] = max(prices[j] - prices[i]) for all j &gt; i</code> and the soluton is <code>max(dp)</code>. It will be an $O(n^2)$ algorithm. But there is a waste of computation in this method. We suppose $j$ is the specific day that  <code>dp[i] = prices[j] - prices[i]</code>, then if there is a $k$ makes $dp[k] &lt; dp[i]$ and $k &gt; i$, then we have $dp[k] = max(prices[l] - prices[i]) &gt; prices[j] - prices[k] &gt; dp[i]$. So the soluton won’t be <code>dp[i]</code>. Under this circumstance, we cam simplify our algorithm by <strong>always searching lower price day as buying day</strong>, record the current price minus buying day price(<strong>the lowest price before/on current $i^{th}$ day</strong>) and generate a sequence of profit. The <code>profit[i]</code> means the difference between $i^{th}$ day price and the lowest price before/on $i^{th}$ day. So <code>max(profit)</code> will be the solution. By doing so, we reduce the method into $O(n)$ time. Here is the cpp code.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prices.empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> buy = prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> maxPro = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> price:prices)&#123;</span><br><span class="line">            <span class="keyword">if</span>(price &lt; buy)&#123;</span><br><span class="line">                buy = price;</span><br><span class="line">            &#125;</span><br><span class="line">            maxPro = max(maxPro, price-buy);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxPro;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="Solution-of-Problem-II"><a href="#Solution-of-Problem-II" class="headerlink" title="Solution of Problem II"></a>Solution of Problem II</h2><p>In problem II, we have not the transaction number limitation, <strong>we can buy/sell any times.</strong> When we try to using the <code>dp[i]</code> as above, we find that it’s hard to build a transition equation because we don’t know how many transaction times there will be. We have to change our state description. We have <strong>only three actions</strong> in a day, buying, selling and doing nothing, so we can use two states to describe a day, i.e. <strong>a day with stock</strong> and <strong>a day without stock</strong>. Let <code>nohold[i]</code> be the maximal profit when we have not stock in $i^{th}$ day, <code>hold[i]</code> be the maximal profit when we have stock. Then the transition equation will be</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hold[i] = max(hold[i<span class="number">-1</span>], nohold[i<span class="number">-1</span>] - prices[i]);</span><br><span class="line">nohold[i] = max(hold[i<span class="number">-1</span>] + prices[i], nohold[i<span class="number">-1</span>]);</span><br></pre></td></tr></table></figure>
+<p>That simply means if we have stock in $i^{th}$ day, the stock can be bought today or we already have it yesterday and if we have stock in $i^{th}$ day, the stock can be sold today or yesterday or before. By this equation, we can solve this problem in one pass. Don’t forget the initialization <code>nohold[0] = -prices[0]</code>.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prices.empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nohold(prices.size(), <span class="number">0</span>);</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; hold(prices.size(), <span class="number">0</span>);</span><br><span class="line">        hold[<span class="number">0</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; prices.size(); i++)&#123;</span><br><span class="line">            hold[i] = max(hold[i<span class="number">-1</span>], nohold[i<span class="number">-1</span>] - prices[i]);</span><br><span class="line">            nohold[i] = max(hold[i<span class="number">-1</span>] + prices[i], nohold[i<span class="number">-1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nohold[nohold.size()<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>There is another solution <strong>do not use DP.</strong> A trivial idea is that we buy all the stock at the begin of an <strong>increasing line</strong> and sell it at the end of line, we can get the most profit.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> maximal = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; prices.size(); i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prices[i] &gt; prices[i<span class="number">-1</span>]) maximal += prices[i] - prices[i<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maximal;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Soluton-of-III-amp-IV"><a href="#Soluton-of-III-amp-IV" class="headerlink" title="Soluton of III &amp; IV"></a>Soluton of III &amp; IV</h3><p>Problem III is a special case of Problem IV, so we just introduce Problem IV. In Problem IV, we have a limitation that <strong>we can only buy $k$ times($k$ is given).</strong> It can be solved simply like the DP algorithm of Problem II. We can use similar state description and just increase a dimension of <strong>transaction times.</strong> Let <code>hold[i][j]</code> as the maximal profit when we have stock and $j$ transitions on $i^{th}$ day and <code>nohold[i][j]</code> as the maximal profit when we have no stock and have  $j$ transitions on $i^{th}$ day. Also like Problem II, the transition equation can be written as</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hold[i][j] = max(hold[i<span class="number">-1</span>][j], nohold[i<span class="number">-1</span>][j<span class="number">-1</span>] - prices[i]);</span><br><span class="line">nohold[i][j] = max(nohold[i<span class="number">-1</span>][j], hold[i<span class="number">-1</span>][j] + prices[i]);</span><br></pre></td></tr></table></figure>
+<p>The solution will be <code>nohold[n-1][k-1]</code>. What need to be mentioned is that <strong>we counting transaction by counting buying numbers but not selling.</strong> Then it’s a one-pass method.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span> k, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prices.empty() || k==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; hold(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(k, <span class="number">0</span>)), nohold(n, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(k, <span class="number">0</span>));</span><br><span class="line">        <span class="comment">//hold[0][0] = -prices[0];</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; k; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(j &gt; <span class="number">0</span>)</span><br><span class="line">                        hold[i][j] = max(hold[i<span class="number">-1</span>][j], nohold[i<span class="number">-1</span>][j<span class="number">-1</span>] - prices[i]);</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        hold[i][j] = max(hold[i<span class="number">-1</span>][j], -prices[i]);</span><br><span class="line">                    nohold[i][j] = max(nohold[i<span class="number">-1</span>][j], hold[i<span class="number">-1</span>][j] + prices[i]);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> hold[i][j] = -prices[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nohold[n<span class="number">-1</span>][k<span class="number">-1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>But the code <strong>did not pass!</strong> We got a <strong>Memory Limit Exceeded.</strong> So I start to reduce the dimension of the equation. Obviously, both <code>hold[i][j]</code> and <code>nohold[i][j]</code> have only relationship with <code>hold[i-1][*]</code> and <code>nohold[i-1][*]</code>. So we can just reduce it as</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hold[j] = max(hold[j], nohold[j<span class="number">-1</span>] - prices[i]);</span><br><span class="line">nohold[j] = max(nohold[j], hold[j] + prices[i]);</span><br></pre></td></tr></table></figure>
+<p>Also, using a <strong>sentinel $0$ in nohold[j]</strong> can make code looks better(reduce the number of $if$). So we get the code like this.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span> k, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prices.empty() || k==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; hold(k, INT_MIN), nohold(k+<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">        hold[<span class="number">0</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; k; j++)&#123;</span><br><span class="line">                    hold[j] = max(hold[j], nohold[j] - prices[i]);</span><br><span class="line">                    nohold[j+<span class="number">1</span>] = max(nohold[j+<span class="number">1</span>], hold[j] + prices[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nohold[k];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>~Ok, we have already solved it!~ Wait, it’s still <strong>Memory Limit Exceeded!</strong> But why? If we consider a super large $k$ that the limitation is meaningless to the problem, the problem <strong>reduces into Problem II.</strong> But the time complexity of our solution will still be $O(k*\dot n)$, which is a super large number especially comparing with $O(n)$ solution in Problem II. We can solve this by a simple $if$ sentence.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(k &gt; n/<span class="number">2</span>)&#123;</span><br><span class="line">  <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; prices.size(); i++)</span><br><span class="line">    res = max(res, res + prices[i]-prices[i<span class="number">-1</span>]);</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>And here is the whole program of Problem IV.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span> k, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prices.empty() || k==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="keyword">if</span>(k &gt; n/<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; prices.size(); i++)</span><br><span class="line">                res = max(res, res + prices[i]-prices[i<span class="number">-1</span>]);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; hold(k, INT_MIN), nohold(k+<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">        hold[<span class="number">0</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; k; j++)&#123;</span><br><span class="line">                    hold[j] = max(hold[j], nohold[j] - prices[i]);</span><br><span class="line">                    nohold[j+<span class="number">1</span>] = max(nohold[j+<span class="number">1</span>], hold[j] + prices[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nohold[k];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="Solution-of-Problem-with-Cooldown"><a href="#Solution-of-Problem-with-Cooldown" class="headerlink" title="Solution of Problem with Cooldown"></a>Solution of Problem <strong>with Cooldown</strong></h3><p>Cooldown means we have to ~have relax and take a coffee~ the day after selling. <strong>Buying the day after a selling is not allowed.</strong> That means our states description above can not be used again…Of course not! We can just do a little modification, adding a new vector called <code>cooldown[i]</code> means the maximal profit when we <strong>just sell or do nothing</strong> on the $i^{th}$ day. We have <code>have_stock[i]</code> and <code>have_no_stock[i]</code> as above. We can find the transition of cooldown like <code>cooldown[i] = max(hold_no_stock[i-1], hold_stock[i-1] + prices[i])</code> which means today we sell the stock or do nothing. The transition of hold_stock is still <code>hold_stock[i] = max(hold_stock[i-1], hold_no_stock[i-1] - prices[i])</code> because cooldown doesn’t influence buying. Finally the transition equation pf <code>hold_no_stock[i]</code> can be <code>hold_no_stock[i] = max(hold_no_stock[i-1], cooldown[i-1])</code>, meaning that today is a <strong>cooldown day or no stock day.</strong> Combine them together we have_stock</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hold_no_stock[i] = max(hold_no_stock[i<span class="number">-1</span>], cooldown[i<span class="number">-1</span>]);</span><br><span class="line">hold_stock[i] = max(hold_stock[i<span class="number">-1</span>], hold_no_stock[i<span class="number">-1</span>] - prices[i]);</span><br><span class="line">cooldown[i] = max(hold_no_stock[i<span class="number">-1</span>], hold_stock[i<span class="number">-1</span>] + prices[i]);</span><br></pre></td></tr></table></figure>
+<p>Don’t forget the initialization <code>hold_stock[0] = -prices[0]; cooldown[0] = INT_MIN;</code>. It’s also a $O(n)$ one-pass method now. In conclusion, all these kind of problem can be solved by dynamic programming idea and the basic idea is to form transition equation. <strong>The number of variables or the number of dimensions are equivalent</strong> in constructing equation. So if you have not idea how to form the equation, including the variable number of state will be a good choice. </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prices.empty()) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> n = prices.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; hold_stock(n, <span class="number">0</span>), hold_no_stock(n, <span class="number">0</span>), cooldown(n, <span class="number">0</span>);</span><br><span class="line">        hold_stock[<span class="number">0</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">        cooldown[<span class="number">0</span>] = INT_MIN;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)&#123;</span><br><span class="line">            hold_no_stock[i] = max(hold_no_stock[i<span class="number">-1</span>], cooldown[i<span class="number">-1</span>]);</span><br><span class="line">            hold_stock[i] = max(hold_stock[i<span class="number">-1</span>], hold_no_stock[i<span class="number">-1</span>] - prices[i]);</span><br><span class="line">            cooldown[i] = max(hold_no_stock[i<span class="number">-1</span>], hold_stock[i<span class="number">-1</span>] + prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max(cooldown[cooldown.size()<span class="number">-1</span>], hold_no_stock[hold_no_stock.size()<span class="number">-1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Algorithm/" rel="tag"># Algorithm</a>
+            
+              <a href="/tags/Dynamic-Programming/" rel="tag"># Dynamic Programming</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/01/LeetCode-Solution-300-Longest-Increasing-Subsequence/" rel="next" title="LeetCode Solution: #300 Longest Increasing Subsequence">
+                  <i class="fa fa-chevron-left"></i> LeetCode Solution: #300 Longest Increasing Subsequence
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="comments"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Description"><span class="nav-number"></span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-of-Problem-I"><span class="nav-number"></span> <span class="nav-text">Solution of Problem I</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-of-Problem-II"><span class="nav-number"></span> <span class="nav-text">Solution of Problem II</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Soluton-of-III-amp-IV"><span class="nav-number">1.</span> <span class="nav-text">Soluton of III &amp; IV</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Solution-of-Problem-with-Cooldown"><span class="nav-number">2.</span> <span class="nav-text">Solution of Problem with Cooldown</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="Erebos">
+  <p class="site-author-name" itemprop="name">Erebos</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/18918606287" title="GitHub &rarr; https://github.com/18918606287" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="/anubarakh@163.com" title="E-Mail &rarr; anubarakh@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Friends Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.fun4go.top" title="https://blog.fun4go.top" rel="noopener" target="_blank">Fun4wut</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://nobugs.dev" title="https://nobugs.dev" rel="noopener" target="_blank">Fuma</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://koyamin.top" title="https://koyamin.top" rel="noopener" target="_blank">Koya</a>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <a href="https://iamsmally.github.io" title="https://iamsmally.github.io" rel="noopener" target="_blank">SmallY</a>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+      
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+   <div class="links-of-blogroll-title">
+     <!-- modify icon to fire by szw -->
+     <i class="fa fa-history fa-" aria-hidden="true"></i>
+     Recent Articles
+   </div>
+   <ul class="links-of-blogroll-list">
+     
+     
+       <li>
+         <a href="/2019/09/05/LeetCode-Solution-Best-Time-Stock-to-Buy-and-Sell-Stock/" title="LeetCode Solution: Best Time to Buy and Sell Stock" target="_blank">LeetCode Solution: Best Time to Buy and Sell Stock</a>
+       </li>
+     
+       <li>
+         <a href="/2019/09/01/LeetCode-Solution-300-Longest-Increasing-Subsequence/" title="LeetCode Solution: #300 Longest Increasing Subsequence" target="_blank">LeetCode Solution: #300 Longest Increasing Subsequence</a>
+       </li>
+     
+       <li>
+         <a href="/2019/08/28/Leetcode-Solution-LRUcache/" title="Leetcode Solution: #146 LRUcache" target="_blank">Leetcode Solution: #146 LRUcache</a>
+       </li>
+     
+       <li>
+         <a href="/2019/08/27/Leetcode-Solution-Linked-List-Circle-0/" title="Leetcode Solution: #142 Linked List Circle" target="_blank">Leetcode Solution: #142 Linked List Circle</a>
+       </li>
+     
+   </ul>
+ 
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Erebos</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.3.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/motion.js?v=7.3.0"></script>
+<script src="/js/schemes/pisces.js?v=7.3.0"></script>
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    
+      
+<script type="text/x-mathjax-config">
+    MathJax.Ajax.config.path['mhchem'] = '//cdn.jsdelivr.net/npm/mathjax-mhchem@3';
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        extensions: ['[mhchem]/mhchem.js'],
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail';
+  guest = guest.split(',').filter(item => {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'kupRThA2AKPwD3unnYtApStN-gzGzoHsz',
+    appKey: 'q8n4R1hU212t20C6yhWmkKRJ',
+    placeholder: 'Enter your comment here',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: 'en' || 'zh-cn',
+    path: location.pathname
+  });
+}, window.Valine);
+</script>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/love.js"></script>
+</body>
+</html>

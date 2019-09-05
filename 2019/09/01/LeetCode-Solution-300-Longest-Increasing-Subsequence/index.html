@@ -56,18 +56,18 @@
   };
 </script>
 
-  <meta name="description" content="IntroductionIn this article I will describe two dynamic programming algorithms solving LIS problem and STL functions lower_bound() and upper_bound().Description">
+  <meta name="description" content="IntroductionIn this article I will describe two dynamic programming algorithms solving LIS problem and STL functions lower_bound() and upper_bound(). DescriptionGiven an unsorted array of integers, fi">
 <meta name="keywords" content="STL,Algorithm,Dynamic Programming">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LeetCode Solution: #300 Longest Increasing Subsequence">
 <meta property="og:url" content="https://erebos.top/2019/09/01/LeetCode-Solution-300-Longest-Increasing-Subsequence/index.html">
 <meta property="og:site_name" content="Erebos&#39;s blog">
-<meta property="og:description" content="IntroductionIn this article I will describe two dynamic programming algorithms solving LIS problem and STL functions lower_bound() and upper_bound().Description">
+<meta property="og:description" content="IntroductionIn this article I will describe two dynamic programming algorithms solving LIS problem and STL functions lower_bound() and upper_bound(). DescriptionGiven an unsorted array of integers, fi">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-02T03:32:20.097Z">
+<meta property="og:updated_time" content="2019-09-04T23:51:40.375Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode Solution: #300 Longest Increasing Subsequence">
-<meta name="twitter:description" content="IntroductionIn this article I will describe two dynamic programming algorithms solving LIS problem and STL functions lower_bound() and upper_bound().Description">
+<meta name="twitter:description" content="IntroductionIn this article I will describe two dynamic programming algorithms solving LIS problem and STL functions lower_bound() and upper_bound(). DescriptionGiven an unsorted array of integers, fi">
   <link rel="alternate" href="/atom.xml" title="Erebos's blog" type="application/atom+xml">
   <link rel="canonical" href="https://erebos.top/2019/09/01/LeetCode-Solution-300-Longest-Increasing-Subsequence/">
 
@@ -287,7 +287,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-02 11:32:20" itemprop="dateModified" datetime="2019-09-02T11:32:20+08:00">2019-09-02</time>
+                <time title="Modified: 2019-09-05 07:51:40" itemprop="dateModified" datetime="2019-09-05T07:51:40+08:00">2019-09-05</time>
               </span>
             
           
@@ -359,13 +359,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>In this article I will describe two <strong>dynamic programming</strong> algorithms solving LIS problem and <strong>STL functions</strong> <code>lower_bound()</code> and <code>upper_bound()</code>.</p><h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><a id="more"></a>
-<p>Given an unsorted array of integers, find the length of longest increasing subsequence.<br>Example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: $[10,9,2,5,3,7,101,18]$</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: The longest increasing subsequence is $[2,3,7,101]$, therefore the length is $4$.</span><br></pre></td></tr></table></figure></p>
+        <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>In this article I will describe two <strong>dynamic programming</strong> algorithms solving LIS problem and <strong>STL functions</strong> <code>lower_bound()</code> and <code>upper_bound()</code>.</p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Given an unsorted array of integers, find the length of longest increasing subsequence.<br>Example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: $[10,9,2,5,3,7,101,18]$</span><br><span class="line">Output: 4</span><br><span class="line">Explanation: The longest increasing subsequence is $[2,3,7,101]$, therefore the length is $4$.</span><br></pre></td></tr></table></figure></p>
 <h3 id="Basic-Idea"><a href="#Basic-Idea" class="headerlink" title="Basic Idea"></a>Basic Idea</h3><p>This problem is an optimal problem, so it’s easy to think about dynamic programming method. So we need to construct a state description which has following properties.</p>
 <ol>
 <li>It has <strong>optimal substructure</strong>, which means the optimal solution of the state can be described with its substructure.</li>
 <li>We can find the <strong>state transition equation</strong> easily.</li>
 </ol>
+<a id="more"></a>
 <h3 id="O-n-2-Dynamic-Programming-Solution"><a href="#O-n-2-Dynamic-Programming-Solution" class="headerlink" title="$O(n^2)$ Dynamic Programming Solution"></a>$O(n^2)$ Dynamic Programming Solution</h3><p>Here is a trivial description that <code>dp[i]</code> means the length of longest increasing subsequence <strong>with $i^{th}$ element.</strong> Also, we can find easily that the value of <code>dp[i]</code> can be determined by all increasing subsequence with $j &lt; i$ that <strong>maintain increasing property</strong> with $i^{th}$ value. Mathematically, <code>dp[i]</code> is determined by all the value <code>dp[j]</code> with $j &lt; i$ and $nums[i] &gt; nums[j]$ which <code>nums</code> is the input vector. So the state transition equation is</p>
 <script type="math/tex; mode=display">dp[i] = max(dp[j]) + 1 \quad with \quad j < i, nums[j] < nums[i]</script><p>This method need two iterations so it’s a $O(n^2)$ algorithm.</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.size();</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dp(n, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> maximal = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++)</span><br><span class="line">                <span class="keyword">if</span>(nums[j] &lt; nums[i])</span><br><span class="line">                    maximal = max(maximal, dp[j]);</span><br><span class="line">            dp[i] = maximal + <span class="number">1</span>;</span><br><span class="line">            ret = max(ret, dp[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -415,6 +416,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/05/LeetCode-Solution-Best-Time-Stock-to-Buy-and-Sell-Stock/" rel="prev" title="LeetCode Solution: Best Time to Buy and Sell Stock">
+                  LeetCode Solution: Best Time to Buy and Sell Stock <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
@@ -484,7 +489,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -501,7 +506,9 @@
         
           
         
-        <span class="site-state-item-count">1</span>
+          
+        
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
@@ -606,6 +613,10 @@
    </div>
    <ul class="links-of-blogroll-list">
      
+     
+       <li>
+         <a href="/2019/09/05/LeetCode-Solution-Best-Time-Stock-to-Buy-and-Sell-Stock/" title="LeetCode Solution: Best Time to Buy and Sell Stock" target="_blank">LeetCode Solution: Best Time to Buy and Sell Stock</a>
+       </li>
      
        <li>
          <a href="/2019/09/01/LeetCode-Solution-300-Longest-Increasing-Subsequence/" title="LeetCode Solution: #300 Longest Increasing Subsequence" target="_blank">LeetCode Solution: #300 Longest Increasing Subsequence</a>
