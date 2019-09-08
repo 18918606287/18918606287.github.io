@@ -271,7 +271,7 @@
                 
               
 
-              <time title="Created: 2019-09-09 07:04:23 / Modified: 07:46:58" itemprop="dateCreated datePublished" datetime="2019-09-09T07:04:23+08:00">2019-09-09</time>
+              <time title="Created: 2019-09-09 07:04:23 / Modified: 07:55:54" itemprop="dateCreated datePublished" datetime="2019-09-09T07:04:23+08:00">2019-09-09</time>
             </span>
           
             
@@ -323,7 +323,7 @@
               
                 <span class="post-meta-item-text">Symbols count in article: </span>
               
-              <span>2.5k</span>
+              <span>2.6k</span>
             </span>
           
             <span class="post-meta-item" title="Reading time">
@@ -346,23 +346,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>Optimization is a focus on many kinds of machine learning algorithms like Linear Regression, SVM and K-means. But actually many kinds of target function is non-convex which means we can only find its local minima. But convex functions still plays an important role in machine learning. And Hessian Matrix is a great algebra tool to analyze convex functions since in most cases our target function will be real, continuous and $2^{nd}$-order differentiable. The main goal of this article is to record the proof of the equivalence between Convex Functions and their Hessians. Here is the some important definitions.</p>
-<h2 id="Definitions"><a href="#Definitions" class="headerlink" title="Definitions"></a>Definitions</h2><h1 id="Convex-Set"><a href="#Convex-Set" class="headerlink" title="Convex Set"></a>Convex Set</h1><p>A <strong>Convex Set</strong> $C\subsetq \Re^n$ is a set of points s.t. $\forall x, y \in C$ and $t \in [0,1]$, $tx+(1-t)y \in C$.</p>
-<h1 id="C-onvex-Function"><a href="#C-onvex-Function" class="headerlink" title="C onvex Function"></a>C onvex Function</h1><p>A function $f:\Re^n \rightarrow \Re$ is a <strong>Convex Function</strong> if for $x, y \in D$, where $D$ is a <strong>convex set</strong>, $f$ and any $t \in [0,1]$ makes</p>
+          <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Optimization is a focus on many kinds of machine learning algorithms like Linear Regression, SVM and K-means. But actually many kinds of target function is non-convex which means we can only find its local minima. But convex functions still plays an important role in machine learning. And Hessian Matrix is a great algebra tool to analyze convex functions since in most cases our target function will be real, continuous and $2^{nd}$-order differentiable. The main goal of this article is to record the proof of the equivalence between Convex Functions and their Hessians. Here is the some important definitions.</p>
+<h2 id="Definitions"><a href="#Definitions" class="headerlink" title="Definitions"></a>Definitions</h2><h3 id="Convex-Set"><a href="#Convex-Set" class="headerlink" title="Convex Set"></a>Convex Set</h3><p>A <strong>Convex Set</strong> $C\subseteq \Re^n$ is a set of points s.t. $\forall x, y \in C$ and $t \in [0,1]$, $tx+(1-t)y \in C$.</p>
+<h3 id="Convex-Function"><a href="#Convex-Function" class="headerlink" title="Convex Function"></a>Convex Function</h3><p>A function $f:\Re^n \rightarrow \Re$ is a <strong>Convex Function</strong> if for $x, y \in D$, where $D$ is a <strong>convex set</strong>, $f$ and any $t \in [0,1]$ makes</p>
 <script type="math/tex; mode=display">
-f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)</script><h1 id="Hessian-Matrix"><a href="#Hessian-Matrix" class="headerlink" title="Hessian Matrix"></a>Hessian Matrix</h1><p>A <strong>Hessian Matrix</strong> is a square matrix of <strong>second-order partial derivatives</strong> of a function $f:\Re^n \rightarrow \Re$, usually written as:</p>
+f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)</script><h3 id="Hessian-Matrix"><a href="#Hessian-Matrix" class="headerlink" title="Hessian Matrix"></a>Hessian Matrix</h3><p>A <strong>Hessian Matrix</strong> is a square matrix of <strong>second-order partial derivatives</strong> of a function $f:\Re^n \rightarrow \Re$, usually written as:</p>
 <script type="math/tex; mode=display">
 H = \nabla^2f(x) = \left[
 \begin{array}{cc}
 \frac{\partial^2 f}{\partial x_1\partial x_1} & \frac{\partial^2 f}{\partial x_1\partial x_2} & ... & \frac{\partial^2 f}{\partial x_1\partial x_d}\\
 \frac{\partial^2 f}{\partial x_2\partial x_1} & \frac{\partial^2 f}{\partial x_2\partial x_2} & ... & \frac{\partial^2 f}{\partial x_2\partial x_d}\\
 ... & ... & ... & ... \\
-\frac{\partial^2 f}{\partial x_d\partial x_1} & \frac{\partial^2 f}{\partial x_n\partial x_2} & ... & \frac{\partial^2 f}{\partial x_d\partial x_d}
+\frac{\partial^2 f}{\partial x_d\partial x_1} & \frac{\partial^2 f}{\partial x_d\partial x_2} & ... & \frac{\partial^2 f}{\partial x_d\partial x_d}
 \end{array}
-\right]_{d\times d}</script><h1 id="Positive-Definite-Semi-Definite-Matrix"><a href="#Positive-Definite-Semi-Definite-Matrix" class="headerlink" title="Positive Definite/Semi-Definite Matrix"></a>Positive Definite/Semi-Definite Matrix</h1><p>A <strong>real symmetric matrix</strong> $P$ is called <strong>Positive Semi-Definite</strong> (PSD) when for all $x \in \Re^n$, there are $x^TPx \geq 0$. And it’s called <strong>Positive Definite</strong> (PD) when for all $x \neq 0 \in \Re^n$, there are $x^TPx &gt; 0$.</p>
-<h3 id="The-equivalence-of-convex-function"><a href="#The-equivalence-of-convex-function" class="headerlink" title="The equivalence of convex function"></a>The equivalence of convex function</h3><p>There is a strong relationship between Convex Functions and their Hessians. Here is what I want to prove today.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A $2^&#123;nd&#125;$-order differentiable function $f$ with convex domain $D$ is (strict) convex **if and only if** its Hessian is **PSD (PD)**.</span><br></pre></td></tr></table></figure></p>
-<p>This conclusion is also called the <strong>Second Order Condition</strong> of a convex function. To prove this, we need to introduce a <strong>First Order Condition</strong> that is<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A $1^&#123;st&#125;$-order differentiable function $f$ with convex domain $D$ is (strict) convex **if and only if** for any $x, y\in D$, $f(y) \geq f(x) + \nabla^T f(x)(y-x)$</span><br></pre></td></tr></table></figure></p>
-<h2 id="Proof-of-First-Order-Condition"><a href="#Proof-of-First-Order-Condition" class="headerlink" title="Proof of First Order Condition"></a>Proof of First Order Condition</h2>
+\right]_{d\times d}</script><h3 id="Positive-Definite-Semi-Definite-Matrix"><a href="#Positive-Definite-Semi-Definite-Matrix" class="headerlink" title="Positive Definite/Semi-Definite Matrix"></a>Positive Definite/Semi-Definite Matrix</h3><p>A <strong>real symmetric matrix</strong> $P$ is called <strong>Positive Semi-Definite</strong> (PSD) when for all $x \in \Re^n$, there are $x^TPx \geq 0$. And it’s called <strong>Positive Definite</strong> (PD) when for all $x \neq 0 \in \Re^n$, there are $x^TPx &gt; 0$.</p>
+<h1 id="The-equivalence-of-convex-function"><a href="#The-equivalence-of-convex-function" class="headerlink" title="The equivalence of convex function"></a>The equivalence of convex function</h1><p>There is a strong relationship between Convex Functions and their Hessians. Here is what I want to prove today.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A $2^&#123;nd&#125;$-order differentiable function $f$ with convex domain $D$ is (strict) convex **if and only if** its Hessian is **PSD (PD)**.</span><br></pre></td></tr></table></figure></p>
+<p>This conclusion is also called the <strong>Second Order Condition</strong> of a convex function. To prove this, we need to introduce a <strong>First Order Condition</strong> that is</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A $1^&#123;st&#125;$-order differentiable function $f$ with convex domain $D$ is (strict) convex **if and only if** for any $x, y\in D$, $f(y) \geq f(x) + \nabla^T f(x)(y-x)$</span><br></pre></td></tr></table></figure>
+<h2 id="Proof-of-First-Order-Condition"><a href="#Proof-of-First-Order-Condition" class="headerlink" title="Proof of First Order Condition"></a>Proof of First Order Condition</h2><p>I divided the proof into two parts.<br>Sufficiency</p>
+
         
       
     </div>
