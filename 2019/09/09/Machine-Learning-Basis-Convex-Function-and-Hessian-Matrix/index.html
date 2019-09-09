@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="Erebos&#39;s blog">
 <meta property="og:description" content="IntroductionOptimization is a focus on many kinds of machine learning algorithms like Linear Regression, SVM and K-means. But actually many kinds of target function is non-convex which means we can on">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-09T01:01:03.830Z">
+<meta property="og:updated_time" content="2019-09-09T01:03:09.693Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Machine Learning Basis: Convex Function and Hessian Matrix">
 <meta name="twitter:description" content="IntroductionOptimization is a focus on many kinds of machine learning algorithms like Linear Regression, SVM and K-means. But actually many kinds of target function is non-convex which means we can on">
@@ -276,7 +276,7 @@
                 
               
 
-              <time title="Created: 2019-09-09 07:04:23 / Modified: 09:01:03" itemprop="dateCreated datePublished" datetime="2019-09-09T07:04:23+08:00">2019-09-09</time>
+              <time title="Created: 2019-09-09 07:04:23 / Modified: 09:03:09" itemprop="dateCreated datePublished" datetime="2019-09-09T07:04:23+08:00">2019-09-09</time>
             </span>
           
             
@@ -377,17 +377,13 @@ H = \nabla^2f(x) = \left[
 <script type="math/tex; mode=display">
 f(tx+(1-t)y) = f(y+t(x-y))</script><script type="math/tex; mode=display">
  = f(y) + t\nabla^Tf(y)(x-y) + t^2(x-y)^T\nabla^2f(y)(x-y) + o(t\|x-y\|)</script><script type="math/tex; mode=display">
-\leq tf(x)+(1-t)f(y).
-$$ So, we can see</script><p>tf(x) \geq tf(y) + t\nabla^Tf(y)(x-y) + t^2(x-y)^T\nabla^2f(y)(x-y) + o(t|x-y|)</p>
+\leq tf(x)+(1-t)f(y).</script><p>So, we can see</p>
 <script type="math/tex; mode=display">
-</script><p>f(x) \geq f(y) + \nabla^Tf(y)(x-y) + t(x-y)^T\nabla^2f(y)(x-y) + \frac{o(t|x-y|)}{t}</p>
+tf(x) \geq tf(y) + t\nabla^Tf(y)(x-y) + t^2(x-y)^T\nabla^2f(y)(x-y) + o(t\|x-y\|)</script><script type="math/tex; mode=display">
+f(x) \geq f(y) + \nabla^Tf(y)(x-y) + t(x-y)^T\nabla^2f(y)(x-y) + \frac{o(t\|x-y\|)}{t}</script><p>Let $t\rightarrow 0$,</p>
 <script type="math/tex; mode=display">
-Let $t\rightarrow 0$,</script><p>f(x) \geq f(y) + \nabla^Tf(y)(x-y)</p>
-<script type="math/tex; mode=display">
-
-Then we can prove that, under the case of first order condition, $f$ is a convex function.
-If $f$ satisfy the first order condition, for all $x, y\in \Re^n$ and $t\in [0,1]$, we have
-$$f(x) \geq f(tx+(1-t)y) + \nabla^Tf(tx+(1-t)y)(x-(tx+(1-t)y)</script><script type="math/tex; mode=display">f(y) \geq f(tx+(1-t)y) + \nabla^Tf(tx+(1-t)y)(y-(tx+(1-t)y)</script><p>Add them together, we have</p>
+f(x) \geq f(y) + \nabla^Tf(y)(x-y)</script><p>Then we can prove that, under the case of first order condition, $f$ is a convex function.<br>If $f$ satisfy the first order condition, for all $x, y\in \Re^n$ and $t\in [0,1]$, we have</p>
+<script type="math/tex; mode=display">f(x) \geq f(tx+(1-t)y) + \nabla^Tf(tx+(1-t)y)(x-(tx+(1-t)y)</script><script type="math/tex; mode=display">f(y) \geq f(tx+(1-t)y) + \nabla^Tf(tx+(1-t)y)(y-(tx+(1-t)y)</script><p>Add them together, we have</p>
 <script type="math/tex; mode=display">
 tf(x)+(1-t)f(y)</script><script type="math/tex; mode=display">
 \geq (t+(1-t))f(tx+(1-t)y) + [tx+(1-t)y-(t+1-t)(tx+(1-t)y)]\nabla^Tf(tx+(1-t)y)</script><script type="math/tex; mode=display">
