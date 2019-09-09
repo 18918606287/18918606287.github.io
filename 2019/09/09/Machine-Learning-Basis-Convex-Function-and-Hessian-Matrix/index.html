@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="Erebos&#39;s blog">
 <meta property="og:description" content="IntroductionOptimization is a focus on many kinds of machine learning algorithms like Linear Regression, SVM and K-means. But actually many kinds of target function is non-convex which means we can on">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-09T00:00:05.549Z">
+<meta property="og:updated_time" content="2019-09-09T00:55:54.782Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Machine Learning Basis: Convex Function and Hessian Matrix">
 <meta name="twitter:description" content="IntroductionOptimization is a focus on many kinds of machine learning algorithms like Linear Regression, SVM and K-means. But actually many kinds of target function is non-convex which means we can on">
@@ -276,7 +276,7 @@
                 
               
 
-              <time title="Created: 2019-09-09 07:04:23 / Modified: 08:00:05" itemprop="dateCreated datePublished" datetime="2019-09-09T07:04:23+08:00">2019-09-09</time>
+              <time title="Created: 2019-09-09 07:04:23 / Modified: 08:55:54" itemprop="dateCreated datePublished" datetime="2019-09-09T07:04:23+08:00">2019-09-09</time>
             </span>
           
             
@@ -328,7 +328,7 @@
               
                 <span class="post-meta-item-text">Symbols count in article: </span>
               
-              <span>2.5k</span>
+              <span>1.9k</span>
             </span>
           
             <span class="post-meta-item" title="Reading time">
@@ -352,10 +352,10 @@
 
       
         <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Optimization is a focus on many kinds of machine learning algorithms like Linear Regression, SVM and K-means. But actually many kinds of target function is non-convex which means we can only find its local minima. But convex functions still plays an important role in machine learning. And Hessian Matrix is a great algebra tool to analyze convex functions since in most cases our target function will be real, continuous and $2^{nd}$-order differentiable. The main goal of this article is to record the proof of the equivalence between Convex Functions and their Hessians. Here is the some important definitions.</p>
-<h2 id="Definitions"><a href="#Definitions" class="headerlink" title="Definitions"></a>Definitions</h2><h3 id="Convex-Set"><a href="#Convex-Set" class="headerlink" title="Convex Set"></a>Convex Set</h3><p>A <strong>Convex Set</strong> $C\subseteq \Re^n$ is a set of points s.t. $\forall x, y \in C$ and $t \in [0,1]$, $tx+(1-t)y \in C$.</p>
-<h3 id="Convex-Function"><a href="#Convex-Function" class="headerlink" title="Convex Function"></a>Convex Function</h3><p>A function $f:\Re^n \rightarrow \Re$ is a <strong>Convex Function</strong> if for $x, y \in D$, where $D$ is a <strong>convex set</strong>, $f$ and any $t \in [0,1]$ makes</p>
+<h2 id="Convex-Set"><a href="#Convex-Set" class="headerlink" title="Convex Set"></a>Convex Set</h2><p>A <strong>Convex Set</strong> $C\subseteq \Re^n$ is a set of points s.t. $\forall x, y \in C$ and $t \in [0,1]$, $tx+(1-t)y \in C$.</p>
+<h2 id="Convex-Function"><a href="#Convex-Function" class="headerlink" title="Convex Function"></a>Convex Function</h2><p>A function $f:\Re^n \rightarrow \Re$ is a <strong>Convex Function</strong> if for $x, y \in D$, where $D$ is a <strong>convex set</strong>, $f$ and any $t \in [0,1]$ makes</p>
 <script type="math/tex; mode=display">
-f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)</script><h3 id="Hessian-Matrix"><a href="#Hessian-Matrix" class="headerlink" title="Hessian Matrix"></a>Hessian Matrix</h3><p>A <strong>Hessian Matrix</strong> is a square matrix of <strong>second-order partial derivatives</strong> of a function $f:\Re^n \rightarrow \Re$, usually written as:</p>
+f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)</script><h2 id="Hessian-Matrix"><a href="#Hessian-Matrix" class="headerlink" title="Hessian Matrix"></a>Hessian Matrix</h2><p>A <strong>Hessian Matrix</strong> is a square matrix of <strong>second-order partial derivatives</strong> of a function $f:\Re^n \rightarrow \Re$, usually written as:</p>
 <script type="math/tex; mode=display">
 H = \nabla^2f(x) = \left[
 \begin{array}{cc}
@@ -364,16 +364,7 @@ H = \nabla^2f(x) = \left[
 ... & ... & ... & ... \\
 \frac{\partial^2 f}{\partial x_d\partial x_1} & \frac{\partial^2 f}{\partial x_d\partial x_2} & ... & \frac{\partial^2 f}{\partial x_d\partial x_d}
 \end{array}
-\right]_{d\times d}</script><h3 id="Positive-Definite-Semi-Definite-Matrix"><a href="#Positive-Definite-Semi-Definite-Matrix" class="headerlink" title="Positive Definite/Semi-Definite Matrix"></a>Positive Definite/Semi-Definite Matrix</h3><p>A <strong>real symmetric matrix</strong> $P$ is called <strong>Positive Semi-Definite</strong> (PSD) when for all $x \in \Re^n$, there are $x^TPx \geq 0$. And it’s called <strong>Positive Definite</strong> (PD) when for all $x \neq 0 \in \Re^n$, there are $x^TPx &gt; 0$.</p>
-<h1 id="The-equivalence-of-convex-function"><a href="#The-equivalence-of-convex-function" class="headerlink" title="The equivalence of convex function"></a>The equivalence of convex function</h1><p>There is a strong relationship between Convex Functions and their Hessians. Here is what I want to prove today.</p>
-<blockquote>
-<p>A $2^{nd}$-order differentiable function $f$ with convex domain $D$ is (strict) convex <strong>if and only if</strong> its Hessian is <strong>PSD (PD)</strong>.</p>
-</blockquote>
-<p>This conclusion is also called the <strong>Second Order Condition</strong> of a convex function. To prove this, we need to introduce a <strong>First Order Condition</strong> that is</p>
-<blockquote>
-<p>A $1^{st}$-order differentiable function $f$ with convex domain $D$ is (strict) convex <strong>if and only if</strong> for any $x, y\in D$, $f(y) \geq f(x) + \nabla^T f(x)(y-x)$</p>
-</blockquote>
-<h2 id="Proof-of-First-Order-Condition"><a href="#Proof-of-First-Order-Condition" class="headerlink" title="Proof of First Order Condition"></a>Proof of First Order Condition</h2><p>I divided the proof into two parts.<br>Sufficiency</p>
+\right]_{d\times d}</script><h2 id="Positive-Definite-Semi-Definite-Matrix"><a href="#Positive-Definite-Semi-Definite-Matrix" class="headerlink" title="Positive Definite/Semi-Definite Matrix"></a>Positive Definite/Semi-Definite Matrix</h2><p>A <strong>real symmetric matrix</strong> $P$ is called <strong>Positive Semi-Definite</strong> (PSD) when for all $x \in \Re^n$, there are $x^TPx \geq 0$. And it’s called <strong>Positive Definite</strong> (PD) when for all $x \neq 0 \in \Re^n$, there are $x^TPx &gt; 0$.<br><a id="more"></a></p>
 
     </div>
 
@@ -461,7 +452,7 @@ H = \nabla^2f(x) = \left[
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Definitions"><span class="nav-number">1.1.</span> <span class="nav-text">Definitions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Convex-Set"><span class="nav-number">1.1.1.</span> <span class="nav-text">Convex Set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Convex-Function"><span class="nav-number">1.1.2.</span> <span class="nav-text">Convex Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hessian-Matrix"><span class="nav-number">1.1.3.</span> <span class="nav-text">Hessian Matrix</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Positive-Definite-Semi-Definite-Matrix"><span class="nav-number">1.1.4.</span> <span class="nav-text">Positive Definite/Semi-Definite Matrix</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-equivalence-of-convex-function"><span class="nav-number">2.</span> <span class="nav-text">The equivalence of convex function</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Proof-of-First-Order-Condition"><span class="nav-number">2.1.</span> <span class="nav-text">Proof of First Order Condition</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Convex-Set"><span class="nav-number">1.1.</span> <span class="nav-text">Convex Set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Convex-Function"><span class="nav-number">1.2.</span> <span class="nav-text">Convex Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hessian-Matrix"><span class="nav-number">1.3.</span> <span class="nav-text">Hessian Matrix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Positive-Definite-Semi-Definite-Matrix"><span class="nav-number">1.4.</span> <span class="nav-text">Positive Definite/Semi-Definite Matrix</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
