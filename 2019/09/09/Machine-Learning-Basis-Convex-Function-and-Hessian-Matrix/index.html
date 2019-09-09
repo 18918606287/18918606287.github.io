@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="Erebos&#39;s blog">
 <meta property="og:description" content="IntroductionOptimization is a focus on many kinds of machine learning algorithms like Linear Regression, SVM and K-means. But actually many kinds of target function is non-convex which means we can on">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-09T00:55:54.782Z">
+<meta property="og:updated_time" content="2019-09-09T01:01:03.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Machine Learning Basis: Convex Function and Hessian Matrix">
 <meta name="twitter:description" content="IntroductionOptimization is a focus on many kinds of machine learning algorithms like Linear Regression, SVM and K-means. But actually many kinds of target function is non-convex which means we can on">
@@ -276,7 +276,7 @@
                 
               
 
-              <time title="Created: 2019-09-09 07:04:23 / Modified: 08:55:54" itemprop="dateCreated datePublished" datetime="2019-09-09T07:04:23+08:00">2019-09-09</time>
+              <time title="Created: 2019-09-09 07:04:23 / Modified: 09:01:03" itemprop="dateCreated datePublished" datetime="2019-09-09T07:04:23+08:00">2019-09-09</time>
             </span>
           
             
@@ -328,7 +328,7 @@
               
                 <span class="post-meta-item-text">Symbols count in article: </span>
               
-              <span>1.9k</span>
+              <span>4.4k</span>
             </span>
           
             <span class="post-meta-item" title="Reading time">
@@ -338,7 +338,7 @@
               
                 <span class="post-meta-item-text">Reading time &asymp;</span>
               
-              <span>2 mins.</span>
+              <span>4 mins.</span>
             </span>
           
 
@@ -365,6 +365,44 @@ H = \nabla^2f(x) = \left[
 \frac{\partial^2 f}{\partial x_d\partial x_1} & \frac{\partial^2 f}{\partial x_d\partial x_2} & ... & \frac{\partial^2 f}{\partial x_d\partial x_d}
 \end{array}
 \right]_{d\times d}</script><h2 id="Positive-Definite-Semi-Definite-Matrix"><a href="#Positive-Definite-Semi-Definite-Matrix" class="headerlink" title="Positive Definite/Semi-Definite Matrix"></a>Positive Definite/Semi-Definite Matrix</h2><p>A <strong>real symmetric matrix</strong> $P$ is called <strong>Positive Semi-Definite</strong> (PSD) when for all $x \in \Re^n$, there are $x^TPx \geq 0$. And it’s called <strong>Positive Definite</strong> (PD) when for all $x \neq 0 \in \Re^n$, there are $x^TPx &gt; 0$.<br><a id="more"></a></p>
+<h1 id="The-equivalence-of-convex-function"><a href="#The-equivalence-of-convex-function" class="headerlink" title="The equivalence of convex function"></a>The equivalence of convex function</h1><p>There is a strong relationship between Convex Functions and their Hessians. Here is what I want to prove today.</p>
+<blockquote>
+<p>A $2^{nd}$-order differentiable function $f$ with convex domain $D$ is (strict) convex <strong>if and only if</strong> its Hessian is <strong>PSD (PD)</strong>.</p>
+</blockquote>
+<p>This conclusion is also called the <strong>Second Order Condition</strong> of a convex function. To prove this, we need to introduce a <strong>First Order Condition</strong> that is</p>
+<blockquote>
+<p>A $1^{st}$-order differentiable function $f$ with convex domain $D$ is (strict) convex <strong>if and only if</strong> for any $x, y\in D$, $f(y) \geq f(x) + \nabla^T f(x)(y-x)$</p>
+</blockquote>
+<h2 id="Proof-of-First-Order-Condition"><a href="#Proof-of-First-Order-Condition" class="headerlink" title="Proof of First Order Condition"></a>Proof of First Order Condition</h2><p>I divided the proof into two parts. Firstly we can prove that if $f$ is a convex function, then first order condition works.<br>If $f$ is convex, we have</p>
+<script type="math/tex; mode=display">
+f(tx+(1-t)y) = f(y+t(x-y))</script><script type="math/tex; mode=display">
+ = f(y) + t\nabla^Tf(y)(x-y) + t^2(x-y)^T\nabla^2f(y)(x-y) + o(t\|x-y\|)</script><script type="math/tex; mode=display">
+\leq tf(x)+(1-t)f(y).
+$$ So, we can see</script><p>tf(x) \geq tf(y) + t\nabla^Tf(y)(x-y) + t^2(x-y)^T\nabla^2f(y)(x-y) + o(t|x-y|)</p>
+<script type="math/tex; mode=display">
+</script><p>f(x) \geq f(y) + \nabla^Tf(y)(x-y) + t(x-y)^T\nabla^2f(y)(x-y) + \frac{o(t|x-y|)}{t}</p>
+<script type="math/tex; mode=display">
+Let $t\rightarrow 0$,</script><p>f(x) \geq f(y) + \nabla^Tf(y)(x-y)</p>
+<script type="math/tex; mode=display">
+
+Then we can prove that, under the case of first order condition, $f$ is a convex function.
+If $f$ satisfy the first order condition, for all $x, y\in \Re^n$ and $t\in [0,1]$, we have
+$$f(x) \geq f(tx+(1-t)y) + \nabla^Tf(tx+(1-t)y)(x-(tx+(1-t)y)</script><script type="math/tex; mode=display">f(y) \geq f(tx+(1-t)y) + \nabla^Tf(tx+(1-t)y)(y-(tx+(1-t)y)</script><p>Add them together, we have</p>
+<script type="math/tex; mode=display">
+tf(x)+(1-t)f(y)</script><script type="math/tex; mode=display">
+\geq (t+(1-t))f(tx+(1-t)y) + [tx+(1-t)y-(t+1-t)(tx+(1-t)y)]\nabla^Tf(tx+(1-t)y)</script><script type="math/tex; mode=display">
+= f(tx+(1-t)y) + 0 = f(tx+(1-t)y)</script><p>So $f(x)$ is a convex function.</p>
+<h2 id="Proof-of-Second-Order-Condition"><a href="#Proof-of-Second-Order-Condition" class="headerlink" title="Proof of Second Order Condition"></a>Proof of Second Order Condition</h2><p>Now all prerequisites are proved, it’s turn to prove the <em>Second Order Condition</em>! Also, I depart the proof into two parts.<br>First we prove that if the Hessian of $f$, $H$ is $PSD$, then $f$ is convex.</p>
+<p>If $f$ is PSD, there exists $\xi$ that</p>
+<script type="math/tex; mode=display">
+f(x) = f(y) + \nabla^Tf(y)(y-x) + \frac{1}{2}(y-x)^T\nabla^2f(\xi)(y-x) \geq f(y) + \nabla^Tf(y)(y-x)</script><p>So $f$ is convex due to the <strong>first order condition</strong>.</p>
+<p>Then we can prove the reverse part.<br>If $f$ is convex, according to the <strong>first order condition</strong>, we suppose for all $y$,</p>
+<script type="math/tex; mode=display">
+f(x+\lambda y) = f(x) + \lambda\nabla^Tf(x)y + \frac{1}{2}\lambda^2y^T\nabla^2f(x)y + o(\lambda^2\|y\|^2)</script><script type="math/tex; mode=display">
+\geq f(x) + \nabla^Tf(x)(x+\lambda y - x)</script><p>Then,</p>
+<script type="math/tex; mode=display">
+\frac{1}{2}\lambda^2y^T\nabla^2f(x)y + o(\lambda^2\|y\|^2) \geq 0</script><script type="math/tex; mode=display">
+\Rightarrow y^T\nabla^2f(x)y + \frac{o(\lambda^2\|y\|^2)}{\frac{1}{2}\lambda^2} \geq 0</script><p>Let $\lambda\rightarrow0$, we have $y^T\nabla^2f(x)y \geq 0$<br>So $\nabla^2f(x)$ is PSD.</p>
 
     </div>
 
@@ -452,7 +490,7 @@ H = \nabla^2f(x) = \left[
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Convex-Set"><span class="nav-number">1.1.</span> <span class="nav-text">Convex Set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Convex-Function"><span class="nav-number">1.2.</span> <span class="nav-text">Convex Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hessian-Matrix"><span class="nav-number">1.3.</span> <span class="nav-text">Hessian Matrix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Positive-Definite-Semi-Definite-Matrix"><span class="nav-number">1.4.</span> <span class="nav-text">Positive Definite/Semi-Definite Matrix</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Convex-Set"><span class="nav-number">1.1.</span> <span class="nav-text">Convex Set</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Convex-Function"><span class="nav-number">1.2.</span> <span class="nav-text">Convex Function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hessian-Matrix"><span class="nav-number">1.3.</span> <span class="nav-text">Hessian Matrix</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Positive-Definite-Semi-Definite-Matrix"><span class="nav-number">1.4.</span> <span class="nav-text">Positive Definite/Semi-Definite Matrix</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-equivalence-of-convex-function"><span class="nav-number">2.</span> <span class="nav-text">The equivalence of convex function</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Proof-of-First-Order-Condition"><span class="nav-number">2.1.</span> <span class="nav-text">Proof of First Order Condition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proof-of-Second-Order-Condition"><span class="nav-number">2.2.</span> <span class="nav-text">Proof of Second Order Condition</span></a></li></ol></li></ol></div>
         
       </div>
       <!--/noindex-->
