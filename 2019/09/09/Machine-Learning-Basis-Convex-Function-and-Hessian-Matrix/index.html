@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="Erebos&#39;s blog">
 <meta property="og:description" content="IntroductionOptimization is a focus on many kinds of machine learning algorithms like Linear Regression, SVM and K-means. But actually many kinds of target function is non-convex which means we can on">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-08T23:55:54.777Z">
+<meta property="og:updated_time" content="2019-09-09T00:00:05.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Machine Learning Basis: Convex Function and Hessian Matrix">
 <meta name="twitter:description" content="IntroductionOptimization is a focus on many kinds of machine learning algorithms like Linear Regression, SVM and K-means. But actually many kinds of target function is non-convex which means we can on">
@@ -276,7 +276,7 @@
                 
               
 
-              <time title="Created: 2019-09-09 07:04:23 / Modified: 07:55:54" itemprop="dateCreated datePublished" datetime="2019-09-09T07:04:23+08:00">2019-09-09</time>
+              <time title="Created: 2019-09-09 07:04:23 / Modified: 08:00:05" itemprop="dateCreated datePublished" datetime="2019-09-09T07:04:23+08:00">2019-09-09</time>
             </span>
           
             
@@ -328,7 +328,7 @@
               
                 <span class="post-meta-item-text">Symbols count in article: </span>
               
-              <span>2.6k</span>
+              <span>2.5k</span>
             </span>
           
             <span class="post-meta-item" title="Reading time">
@@ -365,9 +365,14 @@ H = \nabla^2f(x) = \left[
 \frac{\partial^2 f}{\partial x_d\partial x_1} & \frac{\partial^2 f}{\partial x_d\partial x_2} & ... & \frac{\partial^2 f}{\partial x_d\partial x_d}
 \end{array}
 \right]_{d\times d}</script><h3 id="Positive-Definite-Semi-Definite-Matrix"><a href="#Positive-Definite-Semi-Definite-Matrix" class="headerlink" title="Positive Definite/Semi-Definite Matrix"></a>Positive Definite/Semi-Definite Matrix</h3><p>A <strong>real symmetric matrix</strong> $P$ is called <strong>Positive Semi-Definite</strong> (PSD) when for all $x \in \Re^n$, there are $x^TPx \geq 0$. And it’s called <strong>Positive Definite</strong> (PD) when for all $x \neq 0 \in \Re^n$, there are $x^TPx &gt; 0$.</p>
-<h1 id="The-equivalence-of-convex-function"><a href="#The-equivalence-of-convex-function" class="headerlink" title="The equivalence of convex function"></a>The equivalence of convex function</h1><p>There is a strong relationship between Convex Functions and their Hessians. Here is what I want to prove today.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A $2^&#123;nd&#125;$-order differentiable function $f$ with convex domain $D$ is (strict) convex **if and only if** its Hessian is **PSD (PD)**.</span><br></pre></td></tr></table></figure></p>
+<h1 id="The-equivalence-of-convex-function"><a href="#The-equivalence-of-convex-function" class="headerlink" title="The equivalence of convex function"></a>The equivalence of convex function</h1><p>There is a strong relationship between Convex Functions and their Hessians. Here is what I want to prove today.</p>
+<blockquote>
+<p>A $2^{nd}$-order differentiable function $f$ with convex domain $D$ is (strict) convex <strong>if and only if</strong> its Hessian is <strong>PSD (PD)</strong>.</p>
+</blockquote>
 <p>This conclusion is also called the <strong>Second Order Condition</strong> of a convex function. To prove this, we need to introduce a <strong>First Order Condition</strong> that is</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A $1^&#123;st&#125;$-order differentiable function $f$ with convex domain $D$ is (strict) convex **if and only if** for any $x, y\in D$, $f(y) \geq f(x) + \nabla^T f(x)(y-x)$</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>A $1^{st}$-order differentiable function $f$ with convex domain $D$ is (strict) convex <strong>if and only if</strong> for any $x, y\in D$, $f(y) \geq f(x) + \nabla^T f(x)(y-x)$</p>
+</blockquote>
 <h2 id="Proof-of-First-Order-Condition"><a href="#Proof-of-First-Order-Condition" class="headerlink" title="Proof of First Order Condition"></a>Proof of First Order Condition</h2><p>I divided the proof into two parts.<br>Sufficiency</p>
 
     </div>
