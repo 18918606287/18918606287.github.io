@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="Erebos&#39;s blog">
 <meta property="og:description" content="IntroductionIn this article I will describe two dynamic programming algorithms solving LIS problem and STL functions lower_bound() and upper_bound(). DescriptionGiven an unsorted array of integers, fi">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-09T01:00:59.861Z">
+<meta property="og:updated_time" content="2019-09-09T01:29:53.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode Solution: #300 Longest Increasing Subsequence">
 <meta name="twitter:description" content="IntroductionIn this article I will describe two dynamic programming algorithms solving LIS problem and STL functions lower_bound() and upper_bound(). DescriptionGiven an unsorted array of integers, fi">
@@ -287,7 +287,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-09 09:00:59" itemprop="dateModified" datetime="2019-09-09T09:00:59+08:00">2019-09-09</time>
+                <time title="Modified: 2019-09-09 09:29:53" itemprop="dateModified" datetime="2019-09-09T09:29:53+08:00">2019-09-09</time>
               </span>
             
           
@@ -360,7 +360,10 @@
 
       
         <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>In this article I will describe two <strong>dynamic programming</strong> algorithms solving LIS problem and <strong>STL functions</strong> <code>lower_bound()</code> and <code>upper_bound()</code>.</p>
-<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Given an unsorted array of integers, find the length of longest increasing subsequence.<br>Example:<br>&gt;<br>Input: $[10,9,2,5,3,7,101,18]$<br>Output: 4<br>Explanation: The longest increasing subsequence is $[2,3,7,101]$, therefore the length is $4$.</p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Given an unsorted array of integers, find the length of longest increasing subsequence.<br>Example:</p>
+<blockquote>
+<p>Input: $[10,9,2,5,3,7,101,18]$<br>Output: 4<br>Explanation: The longest increasing subsequence is $[2,3,7,101]$, therefore the length is $4$.</p>
+</blockquote>
 <a id="more"></a>
 <h3 id="O-n-2-Dynamic-Programming-Solution"><a href="#O-n-2-Dynamic-Programming-Solution" class="headerlink" title="$O(n^2)$ Dynamic Programming Solution"></a>$O(n^2)$ Dynamic Programming Solution</h3><p>Here is a trivial description that <code>dp[i]</code> means the length of longest increasing subsequence <strong>with $i^{th}$ element.</strong> Also, we can find easily that the value of <code>dp[i]</code> can be determined by all increasing subsequence with $j &lt; i$ that <strong>maintain increasing property</strong> with $i^{th}$ value. Mathematically, <code>dp[i]</code> is determined by all the value <code>dp[j]</code> with $j &lt; i$ and $nums[i] &gt; nums[j]$ which <code>nums</code> is the input vector. So the state transition equation is</p>
 <blockquote>
