@@ -8,19 +8,23 @@ tags:
 - Linear Algebra
 ---
 
-# Introduction
+## Introduction
+
 Optimization is a focus on many kinds of machine learning algorithms like Linear Regression, SVM and K-means. But actually many kinds of target function is non-convex which means we can only find its local minima. But convex functions still plays an important role in machine learning. And Hessian Matrix is a great algebra tool to analyze convex functions since in most cases our target function will be real, continuous and $2^{nd}$-order differentiable. The main goal of this article is to record the proof of the equivalence between Convex Functions and their Hessians. Here is the some important definitions.
 
-## Convex Set
+### Convex Set
+
 A **Convex Set** $C\subseteq \Re^n$ is a set of points s.t. $\forall x, y \in C$ and $t \in [0,1]$, $tx+(1-t)y \in C$.
 
-## Convex Function
+### Convex Function
+
 A function $f:\Re^n \rightarrow \Re$ is a **Convex Function** if for $x, y \in D$, where $D$ is a **convex set**, $f$ and any $t \in [0,1]$ makes
 $$
 f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)
 $$
 
-## Hessian Matrix
+### Hessian Matrix
+
 A **Hessian Matrix** is a square matrix of **second-order partial derivatives** of a function $f:\Re^n \rightarrow \Re$, usually written as:
 $$
 H = \nabla^2f(x) = \left[
@@ -33,18 +37,21 @@ H = \nabla^2f(x) = \left[
 \right]_{d\times d}
 $$
 
-## Positive Definite/Semi-Definite Matrix
+### Positive Definite/Semi-Definite Matrix
+
 A **real symmetric matrix** $P$ is called **Positive Semi-Definite** (PSD) when for all $x \in \Re^n$, there are $x^TPx \geq 0$. And it's called **Positive Definite** (PD) when for all $x \neq 0 \in \Re^n$, there are $x^TPx > 0$.
 <!-- more -->
 
-# The equivalence of convex function
+## The equivalence of convex function
+
 There is a strong relationship between Convex Functions and their Hessians. Here is what I want to prove today.
 > A $2^{nd}$-order differentiable function $f$ with convex domain $D$ is (strict) convex **if and only if** its Hessian is **PSD (PD)**.
 
 This conclusion is also called the **Second Order Condition** of a convex function. To prove this, we need to introduce a **First Order Condition** that is
 > A $1^{st}$-order differentiable function $f$ with convex domain $D$ is (strict) convex **if and only if** for any $x, y\in D$, $f(y) \geq f(x) + \nabla^T f(x)(y-x)$
 
-## Proof of First Order Condition
+### Proof of First Order Condition
+
 I divided the proof into two parts. Firstly we can prove that if $f$ is a convex function, then first order condition works.
 If $f$ is convex, we have
 $$
@@ -84,7 +91,8 @@ $$
 $$
 So $f(x)$ is a convex function.
 
-## Proof of Second Order Condition
+### Proof of Second Order Condition
+
 Now all prerequisites are proved, it's turn to prove the *Second Order Condition*! Also, I depart the proof into two parts.
 First we prove that if the Hessian of $f$, $H$ is $PSD$, then $f$ is convex.
 

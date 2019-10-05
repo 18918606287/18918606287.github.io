@@ -8,6 +8,7 @@ tags:
 ---
 
 ### Description
+
 Given a linked list and return where the circle begins. For example, a linked list $[3, 2, 0, 4]$ having circle $[2, 0, 4]$ is shown below.
 
 ![Linked_circle](https://raw.githubusercontent.com/18918606287/picture4blog/master/linked_circle.png?token=AKSH2L2XUU2SLYH4KEKJ4WC5P3S2G)
@@ -26,6 +27,7 @@ struct ListNode {
 ### Solution 1: hashset
 
 A trivial idea to solve this problem is saving the node information in a hashset when traversing and find if there is a visited node.
+
 ```cpp
 class Solution {
 public:

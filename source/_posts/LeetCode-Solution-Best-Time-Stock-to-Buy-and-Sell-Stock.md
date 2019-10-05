@@ -9,9 +9,11 @@ tags:
 ---
 
 ### Introduction
+
 In this article I will try to solve **Best Time to Buy and Sell Stock** series problem, including **Best Time to Buy and Sell Stock I, II, III, IV** and **with Cooldown.** Most of them are solved by **dynamic programming** and I will focus on construct transition equation and dimension reduction.  
 
 ### Description
+
 The description of **Best Time to Buy and Sell Stock I** is:
 
 Say you have an array for which the $i^{th}$ element is the price of a given stock on day $i$.
@@ -21,7 +23,8 @@ If you were only permitted to complete at most one transaction (i.e., buy one an
 Note that you cannot sell a stock before you buy one.
 
 Example:
-```
+
+```cpp
 Input: [7,1,5,3,6,4]
 Output: 5
 Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
@@ -29,6 +32,7 @@ Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-
 
 <!-- more -->
 ### Solution of Problem I
+
 A simple idea is using ``dp[i]`` as **the most profit buying in $i^{th}$ day.** Then the transition equation will be ``dp[i] = max(prices[j] - prices[i]) for all j > i`` and the soluton is ``max(dp)``. It will be an $O(n^2)$ algorithm. But there is a waste of computation in this method. We suppose $j$ is the specific day that  ``dp[i] = prices[j] - prices[i]``, then if there is a $k$ makes $dp[k] < dp[i]$ and $k > i$, then we have
 
 $$
@@ -56,6 +60,7 @@ public:
 ```
 
 ### Solution of Problem II
+
 In problem II, we have not the transaction number limitation, **we can buy/sell any times.** When we try to using the ``dp[i]`` as above, we find that it's hard to build a transition equation because we don't know how many transaction times there will be. We have to change our state description. We have **only three actions** in a day, buying, selling and doing nothing, so we can use two states to describe a day, i.e. **a day with stock** and **a day without stock**. Let ``nohold[i]`` be the maximal profit when we have not stock in $i^{th}$ day, ``hold[i]`` be the maximal profit when we have stock. Then the transition equation will be
 
 ```CPP
@@ -98,6 +103,7 @@ public:
 ```
 
 ### Soluton of III & IV
+
 Problem III is a special case of Problem IV, so we just introduce Problem IV. In Problem IV, we have a limitation that **we can only buy $k$ times($k$ is given).** It can be solved simply like the DP algorithm of Problem II. We can use similar state description and just increase a dimension of **transaction times.** Let ``hold[i][j]`` as the maximal profit when we have stock and $j$ transitions on $i^{th}$ day and ``nohold[i][j]`` as the maximal profit when we have no stock and have  $j$ transitions on $i^{th}$ day. Also like Problem II, the transition equation can be written as
 
 ```cpp
@@ -200,6 +206,7 @@ public:
 ```
 
 ### Solution of Problem **with Cooldown**
+
 Cooldown means we have to ~have relax and take a coffee~ the day after selling. **Buying the day after a selling is not allowed.** That means our states description above can not be used again...Of course not! We can just do a little modification, adding a new vector called ``cooldown[i]`` means the maximal profit when we **just sell or do nothing** on the $i^{th}$ day. We have ``have_stock[i]`` and ``have_no_stock[i]`` as above. We can find the transition of cooldown like ``cooldown[i] = max(hold_no_stock[i-1], hold_stock[i-1] + prices[i])`` which means today we sell the stock or do nothing. The transition of hold_stock is still ``hold_stock[i] = max(hold_stock[i-1], hold_no_stock[i-1] - prices[i])`` because cooldown doesn't influence buying. Finally the transition equation pf ``hold_no_stock[i]`` can be ``hold_no_stock[i] = max(hold_no_stock[i-1], cooldown[i-1])``, meaning that today is a **cooldown day or no stock day.** Combine them together we have_stock
 
 ```CPP

@@ -11,6 +11,7 @@ tags:
 ---
 
 ### Description
+
 Design and implement a data structure for **Least Recent Used(LRU) cache**. It should support the following operations: ``get`` and ``put``.
 
 ``get(key)`` -Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
@@ -19,6 +20,7 @@ Design and implement a data structure for **Least Recent Used(LRU) cache**. It s
 The cache is initialized with a **positive** capacity.
 
 ### Basic Idea
+
 To solve this problem, we need to design a kind of data structure with the properties as follow:
 
 1. The data structure can visit the and set/insert the item as soon as possible(such as **vector or map**).
@@ -28,6 +30,7 @@ To solve this problem, we need to design a kind of data structure with the prope
 Due to the data structure in different language is not the same, I will choose **python** and **cpp** as my solution language.
 <!-- more -->
 ### Python solution
+
 I will introduce a kind of python data structure called **OrderedDict**. This is a kind of dictionary(in fact it is inherited from 'dictionary' of python) with the order of insertion time. Python uses an extra **circular linked list** to save the node as form $[PREV, NEXT, KEY]$ to realize the data structure. Obviously, this data structure is perfectly suitable for our problem.
 
 The only problem we need to solve is the question is to find a data structure ordering by **operation time** but not the **insertion time**. So we just need to simply **delete and insert** every operation to solve this problem.
@@ -64,6 +67,7 @@ class LRUCache:
 ```
 
 ### Cpp solution(using STL container)
+
 CPP provides many kinds of STL containers, but there are nothing like the 'OrderedDict' in python. The design idea is to **combine two or more kinds of containers**(like the OrderedDict source code do). If we want to build a structure with **insertion order**, stack will be a first choice. But what we also want is to **keep the high speed of insertion and deletion** of map/vector, which will conflict with stack's properties that we can not move/delete a node in the middle of a stack. Therefore, **Linked List**(in STL is list) will be a great choice, which also matches python's choice. To keep the order of operation time, the problem we need to solve can be as follow:
 
 1. We need a fast way to **visit/insert/delete** a node in linked list **given key**.
