@@ -64,7 +64,7 @@
 <meta property="og:site_name" content="Erebos&#39;s blog">
 <meta property="og:description" content="IntroductionIn this article I will try to solve Best Time to Buy and Sell Stock series problem, including Best Time to Buy and Sell Stock I, II, III, IV and with Cooldown. Most of them are solved by d">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-05T16:55:14.677Z">
+<meta property="og:updated_time" content="2019-10-05T23:35:08.115Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode Solution: Best Time to Buy and Sell Stock">
 <meta name="twitter:description" content="IntroductionIn this article I will try to solve Best Time to Buy and Sell Stock series problem, including Best Time to Buy and Sell Stock I, II, III, IV and with Cooldown. Most of them are solved by d">
@@ -287,7 +287,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-06 00:55:14" itemprop="dateModified" datetime="2019-09-06T00:55:14+08:00">2019-09-06</time>
+                <time title="Modified: 2019-10-06 07:35:08" itemprop="dateModified" datetime="2019-10-06T07:35:08+08:00">2019-10-06</time>
               </span>
             
           
@@ -364,7 +364,8 @@
 <p>Say you have an array for which the $i^{th}$ element is the price of a given stock on day $i$.</p>
 <p>If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.</p>
 <p>Note that you cannot sell a stock before you buy one.</p>
-<p>Example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [7,1,5,3,6,4]</span><br><span class="line">Output: 5</span><br><span class="line">Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.</span><br></pre></td></tr></table></figure></p>
+<p>Example:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: [<span class="number">7</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">4</span>]</span><br><span class="line">Output: <span class="number">5</span></span><br><span class="line">Explanation: Buy on day <span class="number">2</span> (price = <span class="number">1</span>) <span class="keyword">and</span> sell on day <span class="number">5</span> (price = <span class="number">6</span>), profit = <span class="number">6</span><span class="number">-1</span> = <span class="number">5.</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h3 id="Solution-of-Problem-I"><a href="#Solution-of-Problem-I" class="headerlink" title="Solution of Problem I"></a>Solution of Problem I</h3><p>A simple idea is using <code>dp[i]</code> as <strong>the most profit buying in $i^{th}$ day.</strong> Then the transition equation will be <code>dp[i] = max(prices[j] - prices[i]) for all j &gt; i</code> and the soluton is <code>max(dp)</code>. It will be an $O(n^2)$ algorithm. But there is a waste of computation in this method. We suppose $j$ is the specific day that  <code>dp[i] = prices[j] - prices[i]</code>, then if there is a $k$ makes $dp[k] &lt; dp[i]$ and $k &gt; i$, then we have</p>
 <script type="math/tex; mode=display">
