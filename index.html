@@ -242,6 +242,187 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="https://erebos.top/2019/11/04/Machine-Learning-Basis-Lagrange-Duality-and-KKT-Condition/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erebos">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Erebos's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/11/04/Machine-Learning-Basis-Lagrange-Duality-and-KKT-Condition/" class="post-title-link" itemprop="url">Machine Learning Basis: Lagrange Duality and KKT Condition</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-11-04 04:32:23 / Modified: 06:37:43" itemprop="dateCreated datePublished" datetime="2019-11-04T04:32:23+08:00">2019-11-04</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Learning-Notes/" itemprop="url" rel="index"><span itemprop="name">Learning Notes</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/2019/11/04/Machine-Learning-Basis-Lagrange-Duality-and-KKT-Condition/" class="post-meta-item leancloud_visitors" data-flag-title="Machine Learning Basis: Lagrange Duality and KKT Condition" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/11/04/Machine-Learning-Basis-Lagrange-Duality-and-KKT-Condition/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/04/Machine-Learning-Basis-Lagrange-Duality-and-KKT-Condition/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>4.9k</span>
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>4 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Duality and KKT condition are very important for machine learning, especially in SVM models. I’ll focus more on the high-level idea and the derivation of Lagrange Duality and how to introduce to KKT condition. There are some connceptions should be covered first.</p>
+<h3 id="Optimization-Problems-without-Restrictions"><a href="#Optimization-Problems-without-Restrictions" class="headerlink" title="Optimization Problems without Restrictions"></a>Optimization Problems without Restrictions</h3><p>The basic form of optimization problem without restrictions is just like finding the $x \in \Re^d$ makes that</p>
+<script type="math/tex; mode=display">
+min_{x\in \Re^d} f(x)</script><p>A simple solution is to calculate the derivatives of $f(x)$, solve the equation $f’(x^<em>) = 0$ and test if $x^</em>$ is the minimal value.</p>
+<h3 id="Lagrange-Multiplier"><a href="#Lagrange-Multiplier" class="headerlink" title="Lagrange Multiplier"></a>Lagrange Multiplier</h3><p>Consider an Optimization Problem with equality restrictions.</p>
+<script type="math/tex; mode=display">
+min_{x\in \Re^d} f(x)</script><script type="math/tex; mode=display">
+s.t. h_i(x) = 0</script><p>Lagrange Multiplier is a method to solve this kind of problem. We can rewrite the objective function as $f(x) + \sum^n<em>{i=1}\lambda_i h_i(x)$. Then we can prove that the solution of $min</em>{x\in \Re^d,\lambda<em>i\in \Re }f(x) + \sum^n</em>{i=1}\lambda_i h_i(x)$ is equal to the solution of previous problem. Here $\lambda_i$ are called the Lagrange Multiplier. The new optimization problem is</p>
+<script type="math/tex; mode=display">
+min_{x\in \Re^d} f(x) + \sum^n_{i=1}\lambda_i h_i(x)</script><p>And here the new function $\mathcal{L}(x,\lambda) = f(x) + \sum^n_{i=1}\lambda_i h_i(x)$ is called Lagrange function.</p>
+<p>If there is any $h<em>i(x) \neq0$, the minimum will become $-\infin$ due to the unrestricted $\lambda_i$, so we should add a restriction that $\nabla</em>{x,\lambda}\mathcal{L}(x, \lambda)= 0$ which makes the solution finite and converge into $h_i(x) = 0$.</p>
+<h3 id="Dual-Problem"><a href="#Dual-Problem" class="headerlink" title="Dual Problem"></a>Dual Problem</h3><p>Let $\mathcal{L}(x,\lambda, \mu) = f(x) + \sum<em>{i=1}^n\lambda_i h_i(x) + \sum</em>{j=1}^m\mu_j g_j(x)$,then there is a trivial theorem that</p>
+<script type="math/tex; mode=display">
+d^* = max_{\lambda, \mu}(min_{x}(\mathcal{L}(x, \lambda,\mu))) \leq min_{x}({max_{\lambda, \mu}\mathcal{L}(x, \lambda, \mu)}) = p^*</script><p>Here $d^<em> = max<em>{\lambda, \mu}(min</em>{x}(\mathcal{L}(x, \lambda,\mu)))$ is the dual problem of $p^</em>$.</p>
+<h2 id="Derivation"><a href="#Derivation" class="headerlink" title="Derivation"></a>Derivation</h2><h3 id="Transformation-of-Primal-Problem"><a href="#Transformation-of-Primal-Problem" class="headerlink" title="Transformation of Primal Problem"></a>Transformation of Primal Problem</h3><p>Assume $f(x), g_i(x), h_j(x)$ are continuous functions on $\Re^d$, then consider the restricted optimization problem.</p>
+<script type="math/tex; mode=display">
+min_{x\in \Re^d} f(x)</script><script type="math/tex; mode=display">
+s.t.\left\{
+    \begin{array}{lr}
+        g_i(x) \leq 0\\
+        h_i(x) = 0
+    \end{array}
+\right.</script><p>We have already known that the primal problem without restrictions can be solved easily by calculating derivatives and testing. So our first step is to translate the primal problem into a problem without restrictions.</p>
+<p>We have a enhanced Lagrange Function in form of $\mathcal{L}(x,\lambda, \mu) = f(x) + \sum<em>{i=1}^n\lambda_i h_i(x) + \sum</em>{j=1}^m\mu_j g_j(x)$. Here $\mu_j \geq 0$ because <strong>the direction</strong> of $g_j$ has been restricted.</p>
+<p>Define a new function $d(x) = max<em>{\lambda,\mu&gt;0}\mathcal{L}(x, \lambda, \mu）$, we can conclude that $min</em>{x}d(x) = min_{x}f(x)$ under all primal constraints.</p>
+<p>Obviously, $d(x) \geq max<em>{\lambda, \mu}f(x) = f(x)$, so $d(x)$ is an upper bound of $f(x)$. Then under all constraints, we have $\sum</em>{i=1}^n\lambda<em>i h_i(x) + \sum</em>{j=1}^m\mu<em>j g_j(x) = 0$, then $d(x) = max</em>{\lambda, \mu}f(x) = f(x)$.</p>
+<p>In conclusion, the primal problem has an equivalent form</p>
+<script type="math/tex; mode=display">
+min_{x\in \Re^d}({max_{\lambda, \mu}\mathcal{L}(x, \lambda, \mu)})</script><script type="math/tex; mode=display">
+s.t.\left\{
+    \begin{array}{lr}
+        g_i(x) \leq 0\\
+        h_i(x) = 0
+    \end{array}
+\right.</script><h3 id="KKT-condition"><a href="#KKT-condition" class="headerlink" title="KKT condition"></a>KKT condition</h3><p>We have already known the equivalent form of primal problem, but in this form we should still consider the constraints which makes the calculation too complicated. The next step is to find a simpler way of finding the <strong>best solution</strong>.</p>
+<p>Consider the dual problem, a well property should be $d^<em> = p^</em>$ when $x = x^*$ is the best solution of primal problem.</p>
+<p>Think back the transformation of primal problem, if dual problem is equal to the primal problem on $x = x^*$, the formula should be</p>
+<script type="math/tex; mode=display">
+min_{x}(max_{\lambda, \mu} f(x) + \sum_{i=1}^n\lambda_i h(x) + \sum_{i=1}^m\mu_j g_j(x))</script><script type="math/tex; mode=display">= max_{\lambda, \mu}(min_{x}f(x) + \sum_{i=1}^n\lambda_i h(x) + \sum_{i=1}^m\mu_j g_j(x)))</script><script type="math/tex; mode=display">
+s.t.\mu_j \geq 0</script><p>Then consider the Lagrange condition of both inner optimizations which are $max<em>{\lambda, \mu}\mathcal{L}(x,\lambda,\mu)$ and $min</em>{x}\mathcal{L}(x,\lambda,\mu)$. This leads to $\nabla<em>x\mathcal{L}(x^*) = 0$ and $\nabla</em>\lambda\mathcal{L} = 0$.</p>
+<p>Then consider the parameter $\mu_j$. There are two situations about $g_j(x)$. First is that the minimized point is of $g_j(x) = 0$ and the other is that the minimized point is of $g_j(x) &lt; 0$.</p>
+<p>For the first case, the inequality constraint becomes a equality constraint. That is</p>
+<script type="math/tex; mode=display">
+g_j(x) = 0</script><p>For the second case, the inequality constraint disappears, that is</p>
+<script type="math/tex; mode=display">
+\mu_j = 0</script><p>So combine two situations together we have $\mu_j g_j(x)=0$. Then under this constraint, the $\mathcal{L}$ becomes a regular Lagrange Function, which leads to a Lagrange Multiplier constraint that</p>
+<script type="math/tex; mode=display">
+\nabla \mathcal{L}_{x, \lambda} = 0</script><p>So the final constraint becomes</p>
+<script type="math/tex; mode=display">
+\nabla f(x^*) + \sum_{i=1}^n \lambda_i\nabla h_i(x^*) + \sum_{j=1}^m \lambda_j\nabla g_j(x^*) = 0</script><script type="math/tex; mode=display">
+h_i(x^*) = 0</script><script type="math/tex; mode=display">
+\mu_j g_j(x^*) = 0</script><script type="math/tex; mode=display">
+\mu_j \geq 0</script><p>This is the KKT condition.</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://erebos.top/2019/10/06/Connecting-CAEN-using-VScode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -271,11 +452,19 @@
                 
               
 
-              <time title="Created: 2019-10-06 08:18:17 / Modified: 10:03:29" itemprop="dateCreated datePublished" datetime="2019-10-06T08:18:17+08:00">2019-10-06</time>
+              <time title="Created: 2019-10-06 08:18:17" itemprop="dateCreated datePublished" datetime="2019-10-06T08:18:17+08:00">2019-10-06</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-04 06:40:24" itemprop="dateModified" datetime="2019-11-04T06:40:24+08:00">2019-11-04</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -1037,7 +1226,7 @@ H = \nabla^2f(x) = \left[
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-10-06 09:39:00" itemprop="dateModified" datetime="2019-10-06T09:39:00+08:00">2019-10-06</time>
+                <time title="Modified: 2019-11-04 06:40:44" itemprop="dateModified" datetime="2019-11-04T06:40:44+08:00">2019-11-04</time>
               </span>
             
           
@@ -1110,7 +1299,7 @@ H = \nabla^2f(x) = \left[
 
       
           <h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><p>Given a linked list and return where the circle begins. For example, a linked list $[3, 2, 0, 4]$ having circle $[2, 0, 4]$ is shown below.</p>
-<p><img src="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/linked_circle.png?token=AKSH2L2IPCY565MNBW4UIAS5UKACY" alt="Linked_circle"></p>
+<p><img src="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/linked_circle.png?token=AKSH2L5CED5EO3FVD4ZH5425ZCI6Q" alt="Linked_circle"></p>
 <p>The algorithm should return the second node. I use C++ to solve this problem and define the node as below.</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Definition for singly-linked list.</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">     <span class="keyword">int</span> val;</span><br><span class="line">     ListNode *next;</span><br><span class="line">     ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -1189,7 +1378,7 @@ H = \nabla^2f(x) = \left[
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1325,6 +1514,10 @@ H = \nabla^2f(x) = \left[
      
      
        <li>
+         <a href="/2019/11/04/Machine-Learning-Basis-Lagrange-Duality-and-KKT-Condition/" title="Machine Learning Basis: Lagrange Duality and KKT Condition" target="_blank">Machine Learning Basis: Lagrange Duality and KKT Condition</a>
+       </li>
+     
+       <li>
          <a href="/2019/10/06/Connecting-CAEN-using-VScode/" title="Connecting CAEN using VScode" target="_blank">Connecting CAEN using VScode</a>
        </li>
      
@@ -1338,10 +1531,6 @@ H = \nabla^2f(x) = \left[
      
        <li>
          <a href="/2019/09/01/LeetCode-Solution-300-Longest-Increasing-Subsequence/" title="LeetCode Solution: #300 Longest Increasing Subsequence" target="_blank">LeetCode Solution: #300 Longest Increasing Subsequence</a>
-       </li>
-     
-       <li>
-         <a href="/2019/08/28/Leetcode-Solution-LRUcache/" title="Leetcode Solution: #146 LRUcache" target="_blank">Leetcode Solution: #146 LRUcache</a>
        </li>
      
    </ul>

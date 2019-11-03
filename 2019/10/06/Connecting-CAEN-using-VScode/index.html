@@ -64,15 +64,15 @@
 <meta property="og:site_name" content="Erebos&#39;s blog">
 <meta property="og:description" content="What and WhyCAEN is the information technology (IT) services department for the University of Michigan (U-M) College of Engineering, and offers IT resources to support the College’s educational, resea">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/sftp_icon.png?token=AKSH2LZEZITRVGZNJ7LCAVK5UKAD4">
-<meta property="og:image" content="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/pwd_window.jpg?token=AKSH2L5DHS3GCX4N2NIMTVK5UKCLW">
-<meta property="og:image" content="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/duo_window.jpg?token=AKSH2L6L32CRAKLAG2XEKCS5UKCMO">
-<meta property="og:image" content="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/dictionary.png?token=AKSH2L75CVCNTWQWACEFGNS5UKCK6">
-<meta property="og:updated_time" content="2019-10-06T02:03:29.827Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/sftp_icon.png?token=AKSH2LZDEWQACKGI3TC6FPK5ZCIZ2">
+<meta property="og:image" content="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/pwd_window.jpg?token=AKSH2L76E2MJD5QQOGJZDFS5ZCI26">
+<meta property="og:image" content="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/duo_window.jpg?token=AKSH2L3O5PMR5WCNHFECIVS5ZCI4A">
+<meta property="og:image" content="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/dictionary.png?token=AKSH2L7OPAU4DDZQ3R4P3S25ZCI5A">
+<meta property="og:updated_time" content="2019-11-03T22:40:24.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Connecting CAEN using VScode">
 <meta name="twitter:description" content="What and WhyCAEN is the information technology (IT) services department for the University of Michigan (U-M) College of Engineering, and offers IT resources to support the College’s educational, resea">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/sftp_icon.png?token=AKSH2LZEZITRVGZNJ7LCAVK5UKAD4">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/sftp_icon.png?token=AKSH2LZDEWQACKGI3TC6FPK5ZCIZ2">
   <link rel="alternate" href="/atom.xml" title="Erebos's blog" type="application/atom+xml">
   <link rel="canonical" href="https://erebos.top/2019/10/06/Connecting-CAEN-using-VScode/">
 
@@ -281,11 +281,19 @@
                 
               
 
-              <time title="Created: 2019-10-06 08:18:17 / Modified: 10:03:29" itemprop="dateCreated datePublished" datetime="2019-10-06T08:18:17+08:00">2019-10-06</time>
+              <time title="Created: 2019-10-06 08:18:17" itemprop="dateCreated datePublished" datetime="2019-10-06T08:18:17+08:00">2019-10-06</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-11-04 06:40:24" itemprop="dateModified" datetime="2019-11-04T06:40:24+08:00">2019-11-04</time>
+              </span>
             
           
             <span class="post-meta-item">
@@ -381,13 +389,13 @@
 <h3 id="Two-factor-Authentication"><a href="#Two-factor-Authentication" class="headerlink" title="Two-factor Authentication"></a>Two-factor Authentication</h3><p>The University of Michigan uses two-factor authentication to authenticate your account. So we need to add a new parameter to handle this. Add a new attribute <code>interactiveAuth</code> in the json file and set it to <code>true</code>. So the whole configuration file will looks like</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"My Server"</span>,</span><br><span class="line">    <span class="attr">"host"</span>: <span class="string">"xxx.xxx.xxx.xxx"</span>,</span><br><span class="line">    <span class="attr">"protocol"</span>: <span class="string">"sftp"</span>,</span><br><span class="line">    <span class="attr">"port"</span>: <span class="number">22</span>,</span><br><span class="line">    <span class="attr">"username"</span>: <span class="string">"username"</span>,</span><br><span class="line">    <span class="attr">"remotePath"</span>: <span class="string">"/home/username"</span>,</span><br><span class="line">    <span class="attr">"uploadOnSave"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"interactiveAuth"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="Connecting"><a href="#Connecting" class="headerlink" title="Connecting"></a>Connecting</h3><p>Double click the server in the SFTP option on the activity bar with the following icon.</p>
-<p> <img src="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/sftp_icon.png?token=AKSH2LZEZITRVGZNJ7LCAVK5UKAD4" alt="sftp_icon"></p>
+<p> <img src="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/sftp_icon.png?token=AKSH2LZDEWQACKGI3TC6FPK5ZCIZ2" alt="sftp_icon"></p>
 <p>After connecting, you will see a input window above looks like</p>
-<p><img src="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/pwd_window.jpg?token=AKSH2L5DHS3GCX4N2NIMTVK5UKCLW" alt="password_window"></p>
+<p><img src="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/pwd_window.jpg?token=AKSH2L76E2MJD5QQOGJZDFS5ZCI26" alt="password_window"></p>
 <p>Then your will see a two-factor authentication window like</p>
-<p><img src="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/duo_window.jpg?token=AKSH2L6L32CRAKLAG2XEKCS5UKCMO" alt="duo_window"></p>
-<p>input and pass the authentication through app or message, then you will see the dictionary of your server machine. </p>
-<p><img src="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/dictionary.png?token=AKSH2L75CVCNTWQWACEFGNS5UKCK6" alt="dictionary"></p>
+<p><img src="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/duo_window.jpg?token=AKSH2L3O5PMR5WCNHFECIVS5ZCI4A" alt="duo_window"></p>
+<p>input and pass the authentication through app or message, then you will see the dictionary of your server machine.</p>
+<p><img src="https://raw.githubusercontent.com/hongxin-y/picture4blog/master/dictionary.png?token=AKSH2L7OPAU4DDZQ3R4P3S25ZCI5A" alt="dictionary"></p>
 <p>Mention that if you use address <code>&quot;/&quot;</code> in the <code>remotePath</code>, you will connect to the public area and will <strong><em>have not permission to open the private folders including yours</em></strong>.</p>
 
     </div>
@@ -425,6 +433,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/11/04/Machine-Learning-Basis-Lagrange-Duality-and-KKT-Condition/" rel="prev" title="Machine Learning Basis: Lagrange Duality and KKT Condition">
+                  Machine Learning Basis: Lagrange Duality and KKT Condition <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
@@ -494,7 +506,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -630,6 +642,10 @@
      
      
        <li>
+         <a href="/2019/11/04/Machine-Learning-Basis-Lagrange-Duality-and-KKT-Condition/" title="Machine Learning Basis: Lagrange Duality and KKT Condition" target="_blank">Machine Learning Basis: Lagrange Duality and KKT Condition</a>
+       </li>
+     
+       <li>
          <a href="/2019/10/06/Connecting-CAEN-using-VScode/" title="Connecting CAEN using VScode" target="_blank">Connecting CAEN using VScode</a>
        </li>
      
@@ -643,10 +659,6 @@
      
        <li>
          <a href="/2019/09/01/LeetCode-Solution-300-Longest-Increasing-Subsequence/" title="LeetCode Solution: #300 Longest Increasing Subsequence" target="_blank">LeetCode Solution: #300 Longest Increasing Subsequence</a>
-       </li>
-     
-       <li>
-         <a href="/2019/08/28/Leetcode-Solution-LRUcache/" title="Leetcode Solution: #146 LRUcache" target="_blank">Leetcode Solution: #146 LRUcache</a>
        </li>
      
    </ul>
