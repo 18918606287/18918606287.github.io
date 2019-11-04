@@ -11,7 +11,7 @@ tags:
 
 Given a linked list and return where the circle begins. For example, a linked list $[3, 2, 0, 4]$ having circle $[2, 0, 4]$ is shown below.
 
-![Linked_circle](https://raw.githubusercontent.com/hongxin-y/picture4blog/master/linked_circle.png?token=AKSH2L2IPCY565MNBW4UIAS5UKACY)
+![Linked_circle](https://raw.githubusercontent.com/hongxin-y/picture4blog/master/linked_circle.png?token=AKSH2L5CED5EO3FVD4ZH5425ZCI6Q)
 
 The algorithm should return the second node. I use C++ to solve this problem and define the node as below.
 
