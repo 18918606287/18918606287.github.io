@@ -242,6 +242,149 @@
   
   
   <div class="post-block home">
+    <link itemprop="mainEntityOfPage" href="https://erebos.top/2019/11/28/Recover-sorted-tensor-in-Pytorch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Erebos">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Erebos's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2019/11/28/Recover-sorted-tensor-in-Pytorch/" class="post-title-link" itemprop="url">Recover sorted tensor in Pytorch</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-11-28 08:22:07 / Modified: 08:55:49" itemprop="dateCreated datePublished" datetime="2019-11-28T08:22:07+08:00">2019-11-28</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Pytorch/" itemprop="url" rel="index"><span itemprop="name">Pytorch</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span id="/2019/11/28/Recover-sorted-tensor-in-Pytorch/" class="post-meta-item leancloud_visitors" data-flag-title="Recover sorted tensor in Pytorch" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/11/28/Recover-sorted-tensor-in-Pytorch/#comments" itemprop="discussionUrl"><span class="post-comments-count valine-comment-count" data-xid="/2019/11/28/Recover-sorted-tensor-in-Pytorch/" itemprop="commentCount"></span></a>
+  </span>
+  
+  
+          <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span>1.9k</span>
+            </span>
+          
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span>2 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>When I use <code>torch.nn.utils.rnn.pad_sequence</code> to Padding words and feed the padded sequence into LSTM/RNN, a input sorted by length is neccessary. But an order-changed sequence will increase the difficulty of evaluation. So here is a way to recover the sorted tensor using Pytorch functions.</p>
+<h2 id="Let’s-go"><a href="#Let’s-go" class="headerlink" title="Let’s go"></a>Let’s go</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>Here x is <code>tensor([-0.4321,  0.3852,  0.6008,  0.8452, -0.4709,  0.7610, -0.9743, -0.9819, -1.1142, -0.1249])</code> and then we do the sort.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sorted_x, idx = torch.sort(x)</span><br></pre></td></tr></table></figure>
+<p>Here idx is  the index of x, <code>tensor([8, 7, 6, 4, 0, 9, 1, 2, 5, 3])</code>. Then we can get the original order just by sorting the <code>idx</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_, rev_idx = torch.sort(idx)</span><br><span class="line">sorted_x[rev_idx]</span><br></pre></td></tr></table></figure>
+<p>We can see that the script prints the <code>tensor([-0.4321,  0.3852,  0.6008,  0.8452, -0.4709,  0.7610, -0.9743, -0.9819, -1.1142, -0.1249])</code> which is equals to the original <code>x</code>. It’s amazing, isn’t it? I’ll then show you why it works.<br>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/11/28/Recover-sorted-tensor-in-Pytorch/" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block home">
     <link itemprop="mainEntityOfPage" href="https://erebos.top/2019/11/04/Machine-Learning-Basis-Lagrange-Duality-and-KKT-Condition/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1337,7 +1480,7 @@ H = \nabla^2f(x) = \left[
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1358,7 +1501,9 @@ H = \nabla^2f(x) = \left[
         
           
         
-        <span class="site-state-item-count">3</span>
+          
+        
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span>
         </a>
       </div>
@@ -1393,7 +1538,9 @@ H = \nabla^2f(x) = \left[
         
           
         
-        <span class="site-state-item-count">10</span>
+          
+        
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span>
         </a>
       </div>
@@ -1473,6 +1620,10 @@ H = \nabla^2f(x) = \left[
      
      
        <li>
+         <a href="/2019/11/28/Recover-sorted-tensor-in-Pytorch/" title="Recover sorted tensor in Pytorch" target="_blank">Recover sorted tensor in Pytorch</a>
+       </li>
+     
+       <li>
          <a href="/2019/11/04/Machine-Learning-Basis-Lagrange-Duality-and-KKT-Condition/" title="Machine Learning Basis: Lagrange Duality and KKT Condition" target="_blank">Machine Learning Basis: Lagrange Duality and KKT Condition</a>
        </li>
      
@@ -1486,10 +1637,6 @@ H = \nabla^2f(x) = \left[
      
        <li>
          <a href="/2019/09/05/LeetCode-Solution-Best-Time-Stock-to-Buy-and-Sell-Stock/" title="LeetCode Solution: Best Time to Buy and Sell Stock" target="_blank">LeetCode Solution: Best Time to Buy and Sell Stock</a>
-       </li>
-     
-       <li>
-         <a href="/2019/09/01/LeetCode-Solution-300-Longest-Increasing-Subsequence/" title="LeetCode Solution: #300 Longest Increasing Subsequence" target="_blank">LeetCode Solution: #300 Longest Increasing Subsequence</a>
        </li>
      
    </ul>

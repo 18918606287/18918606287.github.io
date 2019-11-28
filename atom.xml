@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://erebos.top/"/>
-  <updated>2019-11-03T23:02:04.836Z</updated>
+  <updated>2019-11-28T00:55:49.248Z</updated>
   <id>https://erebos.top/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Recover sorted tensor in Pytorch</title>
+    <link href="https://erebos.top/2019/11/28/Recover-sorted-tensor-in-Pytorch/"/>
+    <id>https://erebos.top/2019/11/28/Recover-sorted-tensor-in-Pytorch/</id>
+    <published>2019-11-28T00:22:07.000Z</published>
+    <updated>2019-11-28T00:55:49.248Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>When I use <code>torch.nn.utils.rnn.pad_sequence</code> to Padding words and feed the padded sequence into LSTM/RNN, a input sorted by length is neccessary. But an order-changed sequence will increase the difficulty of evaluation. So here is a way to recover the sorted tensor using Pytorch functions.</p><h2 id="Let’s-go"><a href="#Let’s-go" class="headerlink" title="Let’s go"></a>Let’s go</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = torch.randn(<span class="number">10</span>)</span><br></pre></td></tr></table></figure><p>Here x is <code>tensor([-0.4321,  0.3852,  0.6008,  0.8452, -0.4709,  0.7610, -0.9743, -0.9819, -1.1142, -0.1249])</code> and then we do the sort.</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sorted_x, idx = torch.sort(x)</span><br></pre></td></tr></table></figure><p>Here idx is  the index of x, <code>tensor([8, 7, 6, 4, 0, 9, 1, 2, 5, 3])</code>. Then we can get the original order just by sorting the <code>idx</code>.</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_, rev_idx = torch.sort(idx)</span><br><span class="line">sorted_x[rev_idx]</span><br></pre></td></tr></table></figure><p>We can see that the script prints the <code>tensor([-0.4321,  0.3852,  0.6008,  0.8452, -0.4709,  0.7610, -0.9743, -0.9819, -1.1142, -0.1249])</code> which is equals to the original <code>x</code>. It’s amazing, isn’t it? I’ll then show you why it works.<br><a id="more"></a></p><h2 id="Mathematical-Explain"><a href="#Mathematical-Explain" class="headerlink" title="Mathematical Explain"></a>Mathematical Explain</h2><p>We suppose there is a n-permutation corresponding to our tensor.</p><script type="math/tex; mode=display">\left(\begin{matrix}1,2,...,n\\i_1,i_2,...,i_n\end{matrix}    \right)</script><p>Then we do the sort and get a new permutation.</p><script type="math/tex; mode=display">\left(\begin{matrix}1,2,...,n\\i_{j_1},i_{j_2},...,i_{j_n}\end{matrix}    \right), i_{j_1} \leq i_{j_2} \leq ... \leq i_{j_n}</script><p>Here <code>idx</code> is corresponding to the vector <script type="math/tex">(j_1,j_2,...,j_n)</script>. Then do the second sort and get <script type="math/tex">j_{k_1} \leq j_{k_2} \leq ... \leq j_{k_n}</script> and here <code>rev_idx</code> corresponding to vector <script type="math/tex">(k_1,k_2,...,k_n)</script>. The code <code>sorted_x[rev_idx]</code> selected elements with subscriber <script type="math/tex">(k_1,k_2,...,k_n)</script> from the second permutaion, which means it selected the vector <script type="math/tex">(i_{j_{k_1}}, i_{j_{k_2}},...,i_{j_{k_n}})</script>.</p><p>Mention that the vector <script type="math/tex">(j_1, j_2,...,j_n)</script> is a permutation of <script type="math/tex">(1,2,...,n)</script>. So the vector <script type="math/tex">(j_{k_1}, j_{k_2},...,j_{k_n})</script> is also a permutation of <script type="math/tex">(1,2,...,n)</script>. <strong>So we have that for all <script type="math/tex">l\in (1,...,n)</script>,<script type="math/tex">j_{k_l} = l</script></strong>. Finally, <script type="math/tex">(i_{j_{k_1}}, i_{j_{k_2}},...,i_{j_{k_n}}) = (i_1, i_2,...,i_n)</script> which is the original tensor.</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;Problem&lt;/h2&gt;&lt;p&gt;When I use &lt;code&gt;torch.nn.utils.rnn.pad_sequence&lt;/code&gt; to Padding words and feed the padded sequence into LSTM/RNN, a input sorted by length is neccessary. But an order-changed sequence will increase the difficulty of evaluation. So here is a way to recover the sorted tensor using Pytorch functions.&lt;/p&gt;
+&lt;h2 id=&quot;Let’s-go&quot;&gt;&lt;a href=&quot;#Let’s-go&quot; class=&quot;headerlink&quot; title=&quot;Let’s go&quot;&gt;&lt;/a&gt;Let’s go&lt;/h2&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;x = torch.randn(&lt;span class=&quot;number&quot;&gt;10&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Here x is &lt;code&gt;tensor([-0.4321,  0.3852,  0.6008,  0.8452, -0.4709,  0.7610, -0.9743, -0.9819, -1.1142, -0.1249])&lt;/code&gt; and then we do the sort.&lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sorted_x, idx = torch.sort(x)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Here idx is  the index of x, &lt;code&gt;tensor([8, 7, 6, 4, 0, 9, 1, 2, 5, 3])&lt;/code&gt;. Then we can get the original order just by sorting the &lt;code&gt;idx&lt;/code&gt;.&lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;_, rev_idx = torch.sort(idx)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sorted_x[rev_idx]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;We can see that the script prints the &lt;code&gt;tensor([-0.4321,  0.3852,  0.6008,  0.8452, -0.4709,  0.7610, -0.9743, -0.9819, -1.1142, -0.1249])&lt;/code&gt; which is equals to the original &lt;code&gt;x&lt;/code&gt;. It’s amazing, isn’t it? I’ll then show you why it works.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Pytorch" scheme="https://erebos.top/categories/Pytorch/"/>
+    
+    
+      <category term="Pytorch" scheme="https://erebos.top/tags/Pytorch/"/>
+    
+  </entry>
   
   <entry>
     <title>Machine Learning Basis: Lagrange Duality and KKT Condition</title>
@@ -195,11 +223,11 @@ H = \nabla^2f(x) = \left[
       <category term="Leetcode" scheme="https://erebos.top/categories/Leetcode/"/>
     
     
+      <category term="STL" scheme="https://erebos.top/tags/STL/"/>
+    
       <category term="Data Structure" scheme="https://erebos.top/tags/Data-Structure/"/>
     
       <category term="Cpp" scheme="https://erebos.top/tags/Cpp/"/>
-    
-      <category term="STL" scheme="https://erebos.top/tags/STL/"/>
     
       <category term="Python" scheme="https://erebos.top/tags/Python/"/>
     
